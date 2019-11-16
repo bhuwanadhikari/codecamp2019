@@ -37,6 +37,21 @@ function Javascript() {
     const [formProgress, setFormProgress] = React.useState(3);
     const [choice, setChoice] = React.useState(0);
 
+    const [applicationData, setApplicationData] = React.useState({
+        theme: '',
+        ideaName: '',
+        teamName: '',
+    });
+
+    const [membersData, setMembersData] = React.useState(
+        new Array(3).fill({
+            name: 'ramnath',
+            address: '',
+            college: '',
+            roll: ''
+        })
+    )
+
 
 
     const [agreement, setAgreement] = React.useState(true);
@@ -72,52 +87,48 @@ function Javascript() {
     }
 
 
-    const memberDetailForm = [0, 1, 2].map((item) => {
+    const memberDetailForm = membersData.map((member, index) => {
         return (
-            <Col md="4">
-                <FormGroup>
-                    <Input
-                        className="form-control-primary appliForm"
-                        placeholder="Name of Member"
-                        type="text"
-                    ></Input>
-                </FormGroup>
-                <FormGroup>
-                    <Input
-                        className="form-control-primary appliForm"
-                        placeholder="Institution"
-                        type="text"
-                    ></Input>
-                </FormGroup>
-                <FormGroup>
-                    <Input
-                        className="form-control-primary appliForm"
-                        placeholder="Address"
-                        type="text"
-                    ></Input>
-                </FormGroup>
-                <FormGroup>
-                    <Input
-                        className="form-control-primary appliForm"
-                        placeholder="College Name"
-                        type="text"
-                    ></Input>
-                </FormGroup>
-                <FormGroup>
-                    <Input
-                        className="form-control-primary appliForm"
-                        placeholder="College Roll No"
-                        type="text"
-                    ></Input>
-                </FormGroup>
-                <FormGroup>
-                    <Input
-                        className="form-control-primary appliForm"
-                        placeholder="College Roll No"
-                        type="text"
-                    ></Input>
-                </FormGroup>
-            </Col>
+            <React.Fragment key={index}>
+                <Col md='4'>
+
+                    <FormGroup>
+                        <p style={{ fontSize: '0.9em', marginTop: '20px' }}>Details of Member {' '}{index + 1}</p>
+
+                        <Input
+                            className="form-control-primary appliForm"
+                            placeholder="Name of Member"
+                            type="text"
+                            value={member.name}
+                        ></Input>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Input
+                            className="form-control-primary appliForm"
+                            placeholder="Address"
+                            type="text"
+                            value={member.address}
+                        ></Input>
+                    </FormGroup>
+                    <FormGroup>
+                        <Input
+                            className="form-control-primary appliForm"
+                            placeholder="College/Institution Name"
+                            type="text"
+                            value={member.college}
+                        ></Input>
+                    </FormGroup>
+                    <FormGroup>
+                        <Input
+                            className="form-control-primary appliForm"
+                            placeholder="College Roll No"
+                            type="text"
+                            value={member.roll}
+                        ></Input>
+                    </FormGroup>
+                </Col>
+            </React.Fragment>
         )
     })
 
@@ -135,108 +146,10 @@ function Javascript() {
                 </Button>
 
                 <Row>
-                    <Col md="8" xs="10">
+                    <Col md="12" >
 
 
-                        {/* test modal*/}
-                        <Modal isOpen={formProgress == 5} toggle={() => setModal1(0)} style={{ margin: '20px auto', border: '20px solid transparent', maxWidth: '800px' }}>
-                            <div className="modal-header justify-content-center">
-                                <button
-                                    className="close"
-                                    type="button"
-                                    onClick={() => setModal1(false)}
-                                >
-                                    <i className="now-ui-icons ui-1_simple-remove"></i>
-                                </button>
-                                <h4 className="title title-up">CodeCamp 2019</h4>
-                            </div>
 
-
-                            <ModalBody>
-                                <p className="isCentered">Application opening soon!!</p>
-                                <p className=" isCentered" style={{ textAlign: 'center', fontSize: '0.9em' }}>For more mail us at <a style={{ color: "#123456" }} href="mailto:contact@codecamp2019.co?subject = Feedback&body = Message">contact@codecamp2019.co</a></p>
-                                <Row>
-
-                                    <Col lg="9" sm="11">
-                                        <FormGroup>
-                                            <Input
-                                                placeholder="Title of your idea"
-                                                type="text"
-                                            ></Input>
-                                        </FormGroup>
-                                    </Col>
-
-                                    <Col lg="9" sm="11">
-                                        <FormGroup>
-                                            <Input
-                                                defaultValue=""
-                                                placeholder="Name of the Team"
-                                                type="text"
-                                            ></Input>
-                                        </FormGroup>
-
-                                    </Col>
-
-                                    <Col lg="6" sm="9">
-                                        <FormGroup>
-                                            <Input
-                                                placeholder="Number of Member in you team"
-                                                type="number"
-                                                value={memberNo}
-                                                onChange={(e) => {
-                                                    setMemberNo(e.target.value);
-                                                }}
-                                            ></Input>
-                                        </FormGroup>
-                                    </Col>
-
-                                    {members ?
-                                        members.map((item, index) => {
-
-                                            console.log('rpinterd')
-                                            return (<Col key={index} lg="6" sm="8">
-                                                <FormGroup>
-                                                    <Input
-                                                        defaultValue=""
-                                                        placeholder="Name of Member"
-                                                        type="text"
-                                                    ></Input>
-                                                </FormGroup>
-                                            </Col>)
-                                        }) :
-                                        null
-                                    }
-
-                                    <Col lg="9" sm="11">
-                                        <FormGroup>
-                                            <Input
-                                                style={{ borderRadius: '10px', border: '1px solid silver' }}
-                                                id="exampleFormControlTextarea1"
-                                                rows="5"
-                                                type="textarea"
-                                                placeholder="Detail Explanation"
-                                            ></Input>
-                                        </FormGroup>
-                                    </Col>
-
-                                </Row>
-
-
-                            </ModalBody>
-                            <div className="modal-footer">
-                                <Button color="default" type="button"
-                                    onClick={() => setModal1(false)}>
-                                    Cancel
-                                    </Button>
-                                <Button
-                                    color="danger"
-                                    type="button"
-                                    onClick={() => setModal1(false)}
-                                >
-                                    Done
-                                </Button>
-                            </div>
-                        </Modal>
 
                         {/* intro modal*/}
                         {formProgress == 1 ?
@@ -245,7 +158,7 @@ function Javascript() {
                                     <button
                                         className="close"
                                         type="button"
-                                        onClick={() => setShowIntro(false)}
+                                        onClick={_cancel}
                                     >
                                         <i className="now-ui-icons ui-1_simple-remove"></i>
                                     </button>
@@ -296,7 +209,7 @@ function Javascript() {
                                     <button
                                         className="close"
                                         type="button"
-                                        onClick={() => setShowIntro(false)}
+                                        onClick={_cancel}
                                     >
                                         <i className="now-ui-icons ui-1_simple-remove"></i>
                                     </button>
@@ -311,12 +224,13 @@ function Javascript() {
                                         <Col
                                             style={{
                                                 border: choice == 1 ? '2px solid  #2ca8ff' : '2px solid transparent',
-                                            }} sm="4"
+                                            }}
+                                            xs="4"
                                             className='choice'
                                             onClick={() => _choice(1)}
                                         >
                                             <img className='choiceImg' src={RuralTourism}></img>
-                                            <p className='isCentered bolded'>Rural Tourism</p>
+                                            <p className='isCentered bolded choiceName'>Rural Tourism</p>
                                         </Col>
 
                                         <Col
@@ -324,11 +238,11 @@ function Javascript() {
                                                 border: choice == 2 ? '2px solid  #2ca8ff' : '2px solid transparent',
                                             }}
                                             className='choice'
-                                            sm="4"
+                                            xs="4"
                                             onClick={() => _choice(2)}
                                         >
                                             <img className='choiceImg' src={RuralTourism}></img>
-                                            <p className='isCentered bolded'>e-Governance</p>
+                                            <p className='isCentered bolded choiceName'>e-Governance</p>
                                         </Col>
 
                                         <Col
@@ -336,11 +250,11 @@ function Javascript() {
                                                 border: choice == 3 ? '2px solid  #2ca8ff' : '2px solid transparent',
                                             }}
                                             className='choice'
-                                            sm="4"
+                                            xs="4"
                                             onClick={() => _choice(3)}
                                         >
                                             <img className='choiceImg' src={RuralTourism}></img>
-                                            <p className='isCentered bolded'>Public Health</p>
+                                            <p className='isCentered bolded choiceName'>Public Health</p>
                                         </Col>
 
                                     </Row>
@@ -369,7 +283,7 @@ function Javascript() {
                                     <button
                                         className="close"
                                         type="button"
-                                        onClick={() => setShowIntro(false)}
+                                        onClick={_cancel}
                                     >
                                         <i className="now-ui-icons ui-1_simple-remove"></i>
                                     </button>
@@ -403,9 +317,8 @@ function Javascript() {
 
 
 
-                                        <Row>
-                                            {memberDetailForm}
-                                        </Row>
+
+                                        {memberDetailForm}
 
 
 

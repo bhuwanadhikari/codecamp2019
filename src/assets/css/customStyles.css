@@ -34,11 +34,24 @@
     box-sizing: border-box;
 }
 
+.choice:hover .choiceName {
+    color: #636363
+}
+
 .bolded {
     font-weight: bold;
     color: #888888;
 }
 
+
 .appliForm:focus {
     border-color: #2ca8ff;
+}
+
+@media only screen and (max-width: 500px) {
+    .choiceName {
+        font-size: 0.75em;
+    }
+
+
 }

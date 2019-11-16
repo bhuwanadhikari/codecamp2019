@@ -1,0 +1,44 @@
+.isCentered {
+    text-align: justify;
+    text-align-last: center;
+}
+
+.leftAligned {
+    text-align: justify;
+    text-align-last: left;
+}
+
+.topMarginedTitle {
+    padding-top: 60px;
+}
+
+
+.textareaRound {
+    border-radius: 5px;
+}
+
+.aboutText,
+.ralewayFonted {
+    font-family: 'Raleway',
+        sans-serif;
+}
+
+.choice {
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+}
+
+.choice:hover {
+    border: 2px solid #2ca8ff;
+    box-sizing: border-box;
+}
+
+.bolded {
+    font-weight: bold;
+    color: #888888;
+}
+
+.appliForm:focus {
+    border-color: #2ca8ff;
+}

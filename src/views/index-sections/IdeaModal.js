@@ -2,7 +2,9 @@ import React, { useEffect } from "react";
 // react plugins that creates an input with a date picker
 import Datetime from "react-datetime";
 
-import RuralTourism from '../../assets/img/ruraltourism.jpg';
+import theme1 from '../../assets/img/ruraltourism.jpg';
+import theme2 from '../../assets/img/ruraltourism.jpg';
+import theme3 from '../../assets/img/ruraltourism.jpg';
 
 import {
     Button,
@@ -21,21 +23,19 @@ import {
     UncontrolledPopover,
     Label
 } from "reactstrap";
-import { EEXIST } from "constants";
+import { EEXIST, SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG } from "constants";
 
 // core components
 
 function Javascript() {
     const [modal1, setModal1] = React.useState(false);
     const [modal2, setModal2] = React.useState(false);
-    const [memberNo, setMemberNo] = React.useState();
-    const [members, setMembers] = React.useState(new Array(memberNo ? parseInt(memberNo) : 0).fill(''));
 
-    const [showIntro, setShowIntro] = React.useState(false);
-    const [showChoice, setShowChoice] = React.useState(true);
 
-    const [formProgress, setFormProgress] = React.useState(3);
+    const [formProgress, setFormProgress] = React.useState(4);
     const [choice, setChoice] = React.useState(0);
+    const [submitStatus, setSubmitStatus] = React.useState('unSubmitted')
+    const [submitLabel, setSubmitLabel] = React.useState('Submit');
 
     const [applicationData, setApplicationData] = React.useState({
         theme: '',
@@ -43,28 +43,38 @@ function Javascript() {
         teamName: '',
     });
 
-    const [membersData, setMembersData] = React.useState(
-        new Array(3).fill({
-            name: 'ramnath',
-            address: '',
-            college: '',
-            roll: ''
-        })
-    )
+    const memberArr = [{
+        name: '',
+        address: '',
+        college: '',
+        roll: ''
+    }, {
+        name: '',
+        address: '',
+        college: '',
+        roll: ''
+    }, {
+        name: '',
+        address: '',
+        college: '',
+        roll: ''
+    },]
 
-
+    const [membersData, setMembersData] = React.useState(memberArr);
 
     const [agreement, setAgreement] = React.useState(true);
 
-    useEffect(() => {
-        // setMemberNo(parseInt(memberNo));
-        console.log(typeof (memberNo), 'is the type');
-        setMemberNo(memberNo ? parseInt(memberNo) : '');
-        let bufferArr = new Array(memberNo ? parseInt(memberNo) : 0).fill('d');
-        setMembers(bufferArr);
-    }, [memberNo])
+    const _applicationDataChange = (e) => {
+        setApplicationData({ ...applicationData, [e.target.name]: e.target.value });
+    }
 
-    console.log("Memberno", memberNo, 'and members are', members);
+    const _memberDataChange = (e, index, type) => {
+
+        const tempData = membersData;
+        tempData[index][type] = e.target.value;
+        setMembersData(tempData);
+        console.log("The whole state of the apps is now", tempData, membersData);
+    }
 
     const _next = () => {
         setFormProgress(formProgress + 1);
@@ -80,11 +90,23 @@ function Javascript() {
 
     const _choice = (val) => {
         setChoice(val);
+        setApplicationData({ ...applicationData, theme: val });
     }
 
     const _submit = () => {
-        setFormProgress(0);
+
+        if (submitLabel == 'Done') {
+            setFormProgress(0);
+            setSubmitLabel('Submit');
+            return;
+        }
+        setSubmitLabel('Submitting');
+        //api call to ma submit the form
+        //set submit label to submitted
+        setSubmitLabel('Done')
     }
+
+
 
 
     const memberDetailForm = membersData.map((member, index) => {
@@ -92,23 +114,23 @@ function Javascript() {
             <React.Fragment key={index}>
                 <Col md='4'>
 
+                    <p style={{ fontSize: '0.9em', marginTop: '20px' }}>Details of Member {' '}{index + 1}</p>
                     <FormGroup>
-                        <p style={{ fontSize: '0.9em', marginTop: '20px' }}>Details of Member {' '}{index + 1}</p>
-
                         <Input
                             className="form-control-primary appliForm"
                             placeholder="Name of Member"
                             type="text"
-                            value={member.name}
+                            defaultValue={member.name}
+                            onChange={(e) => { _memberDataChange(e, index, 'name') }}
                         ></Input>
                     </FormGroup>
-
                     <FormGroup>
                         <Input
                             className="form-control-primary appliForm"
                             placeholder="Address"
                             type="text"
-                            value={member.address}
+                            defaultValue={member.address}
+                            onChange={(e) => { _memberDataChange(e, index, 'address') }}
                         ></Input>
                     </FormGroup>
                     <FormGroup>
@@ -116,7 +138,8 @@ function Javascript() {
                             className="form-control-primary appliForm"
                             placeholder="College/Institution Name"
                             type="text"
-                            value={member.college}
+                            defaultValue={member.college}
+                            onChange={(e) => { _memberDataChange(e, index, 'college') }}
                         ></Input>
                     </FormGroup>
                     <FormGroup>
@@ -124,11 +147,28 @@ function Javascript() {
                             className="form-control-primary appliForm"
                             placeholder="College Roll No"
                             type="text"
-                            value={member.roll}
+                            defaultValue={member.roll}
+                            onChange={(e) => { _memberDataChange(e, index, 'roll') }}
                         ></Input>
                     </FormGroup>
                 </Col>
             </React.Fragment>
+        )
+    })
+
+    const themesUI = [{ name: 'Rural Tourism', src: theme1 }, { name: 'e-Governance', src: theme2 }, { name: 'Public Health', src: theme3 }].map((theme, index) => {
+        return (
+            <Col key={index}
+                style={{
+                    border: choice == index + 1 ? '2px solid  #2ca8ff' : '2px solid transparent',
+                }}
+                xs="4"
+                className='choice'
+                onClick={() => _choice(index + 1)}
+            >
+                <img className='choiceImg' src={theme.src}></img>
+                <p className='isCentered bolded choiceName'>{theme.name}</p>
+            </Col>
         )
     })
 
@@ -221,42 +261,9 @@ function Javascript() {
                                     <p className="isCentered">What is the theme of your idea?</p>
                                     <Row>
 
-                                        <Col
-                                            style={{
-                                                border: choice == 1 ? '2px solid  #2ca8ff' : '2px solid transparent',
-                                            }}
-                                            xs="4"
-                                            className='choice'
-                                            onClick={() => _choice(1)}
-                                        >
-                                            <img className='choiceImg' src={RuralTourism}></img>
-                                            <p className='isCentered bolded choiceName'>Rural Tourism</p>
-                                        </Col>
 
-                                        <Col
-                                            style={{
-                                                border: choice == 2 ? '2px solid  #2ca8ff' : '2px solid transparent',
-                                            }}
-                                            className='choice'
-                                            xs="4"
-                                            onClick={() => _choice(2)}
-                                        >
-                                            <img className='choiceImg' src={RuralTourism}></img>
-                                            <p className='isCentered bolded choiceName'>e-Governance</p>
-                                        </Col>
 
-                                        <Col
-                                            style={{
-                                                border: choice == 3 ? '2px solid  #2ca8ff' : '2px solid transparent',
-                                            }}
-                                            className='choice'
-                                            xs="4"
-                                            onClick={() => _choice(3)}
-                                        >
-                                            <img className='choiceImg' src={RuralTourism}></img>
-                                            <p className='isCentered bolded choiceName'>Public Health</p>
-                                        </Col>
-
+                                        {themesUI}
                                     </Row>
                                 </ModalBody>
                                 <div className="modal-footer">
@@ -301,6 +308,9 @@ function Javascript() {
                                                     className="form-control-success appliForm"
                                                     placeholder='Title of your Idea'
                                                     type="text"
+                                                    name="ideaName"
+                                                    defaultValue={applicationData.ideaName}
+                                                    onChange={_applicationDataChange}
                                                 ></Input>
                                             </FormGroup>
                                         </Col>
@@ -310,20 +320,13 @@ function Javascript() {
                                                     className="form-control-primary appliForm"
                                                     placeholder="Name of your Team"
                                                     type="text"
+                                                    name="teamName"
+                                                    defaultValue={applicationData.teamName}
+                                                    onChange={_applicationDataChange}
                                                 ></Input>
                                             </FormGroup>
                                         </Col>
-
-
-
-
-
                                         {memberDetailForm}
-
-
-
-
-
                                         <Col lg="9" sm="11">
                                             <FormGroup>
                                                 <Input
@@ -347,13 +350,57 @@ function Javascript() {
                                     <Button
                                         color="danger"
                                         type="button"
-                                        onClick={_submit}
+                                        onClick={_next}
                                     >
-                                        Submit
+                                        Next
                                 </Button>
                                 </div>
                             </Modal>) :
                             null}
+
+
+
+                        {/* Final modal*/}
+                        {formProgress == 4 ?
+                            (<Modal isOpen={formProgress == 4} toggle={() => setFormProgress(0)} style={{ margin: '20px auto', border: '20px solid transparent', maxWidth: '800px' }}>
+                                <div className="modal-header justify-content-center">
+                                    <button
+                                        className="close"
+                                        type="button"
+                                        onClick={_cancel}
+                                    >
+                                        <i className="now-ui-icons ui-1_simple-remove"></i>
+                                    </button>
+                                    <h4 className="title title-up">Application Details</h4>
+                                </div>
+
+
+                                <ModalBody>
+                                    <p className="isCentered">Check your form once again if anything is wrong.</p>
+
+
+                                    <p className=" blackText pureCenter">If everything is okay, You can submit the form now.</p>
+
+
+                                </ModalBody>
+                                <div className="modal-footer">
+                                    <Button color="default" type="button"
+                                        onClick={submitStatus != 'unSubmitted' ? _cancel : _previous}>
+                                        {submitStatus != 'unSubmitted' ? 'Cancel' : 'Previous'}
+                                    </Button>
+                                    <Button
+                                        color="danger"
+                                        type="button"
+                                        onClick={_submit}
+                                    >
+                                        {submitLabel}
+                                    </Button>
+                                </div>
+                            </Modal>) :
+                            null}
+
+
+
 
                     </Col>
                 </Row>

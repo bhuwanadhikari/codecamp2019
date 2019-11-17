@@ -3,6 +3,16 @@
     text-align-last: center;
 }
 
+.blackText {
+    font-family: 'Raleway',
+        sans-serif;
+}
+
+.pureCenter {
+    text-align: center;
+    text-align-last: center;
+}
+
 .leftAligned {
     text-align: justify;
     text-align-last: left;

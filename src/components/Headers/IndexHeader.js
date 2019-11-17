@@ -34,11 +34,7 @@ function IndexHeader() {
         ></div>
         <Container>
           <div className="content-center brand">
-            <img
-              alt="..."
-              className="n-logo"
-              src={require("assets/img/now-logo.png")}
-            ></img>
+
             <h1 className="h1-seo">CODECAMP 2019</h1>
             <h3>Poush 8 - Poush 10</h3>
           </div>

@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
 // react plugins that creates an input with a date picker
 import Datetime from "react-datetime";
+import axios from "axios";
 
 import theme1 from '../../assets/img/theme1.png';
 import theme2 from '../../assets/img/theme2.png';
 import theme3 from '../../assets/img/theme3.png';
+
+import selectCss from '../../assets/css/selectCss.css';
 
 import {
 	Button,
@@ -49,6 +52,8 @@ function Javascript() {
 		photo: '',
 		photoLink: '',
 		name: '',
+		phone: '',
+		size: '',
 		address: '',
 		college: '',
 		roll: '',
@@ -57,6 +62,8 @@ function Javascript() {
 		photo: '',
 		photoLink: '',
 		name: '',
+		phone: '',
+		size: '',
 		address: '',
 		college: '',
 		roll: '',
@@ -65,6 +72,8 @@ function Javascript() {
 		photo: '',
 		photoLink: '',
 		name: '',
+		phone: '',
+		size: '',
 		address: '',
 		college: '',
 		roll: '',
@@ -128,6 +137,18 @@ function Javascript() {
 		setMemberDataError(tempMemberDataError);
 	}
 
+	const _tshirtSizeChange = (e, index) => {
+		const tempData = membersData;
+		tempData[index].size = e.target.value;
+		setMembersData(tempData);
+
+		const tempMemberDataError = memberDataError;
+		tempMemberDataError[index].size = '';
+		setTime(new Date().getTime());
+
+		setMemberDataError(tempMemberDataError);
+	}
+
 	const _continue = () => {
 
 		if (formProgress === 1) {
@@ -184,7 +205,7 @@ function Javascript() {
 	const _submit = () => {
 
 		console.log('here is all of the data of the application', {
-			applicationData, membersData
+			...applicationData, team: membersData
 		});
 
 		if (submitLabel == 'Done') {
@@ -194,8 +215,15 @@ function Javascript() {
 		}
 
 
-
-		setSubmitLabel('Submitting');
+		if (submitLabel === 'Submit') {
+			setSubmitLabel('Submitting');
+			axios.post('', { ...membersData, team: applicationData })
+				.then((res) => {
+					console.log("Successfully submitted here");
+				}).catch((err) => {
+					console.log("Error has been occured", err);
+				});
+		}
 		//api call to ma submit the form
 		//set submit label to submitted
 		setSubmitLabel('Done')
@@ -209,7 +237,7 @@ function Javascript() {
 			<React.Fragment key={index}>
 				<Col md='4'>
 
-					<p style={{ fontSize: '0.9em', marginTop: '20px' }}>Details of Member {' '}{index + 1}</p>
+					<p style={{ fontSize: '0.9em', marginTop: '20px' }}>Details of Member {' '}{index + 1}{index === 2 ? '(Optional)' : null}</p>
 
 					<p className='aboutText' style={{ fontSize: '0.9em', marginBottom: '5px' }}>{`Upload photo of Member ${index + 1}`}</p>
 					<input
@@ -239,11 +267,30 @@ function Javascript() {
 							onChange={(e) => { _memberDataChange(e, index, 'email') }}
 						></Input>
 						{memberDataError[index].email ? <Error>{memberDataError[index].email}</Error> : null}
-						{
-							console.log(memberDataError[0].email, 'is the error found in name')
-
-						}
-
+					</FormGroup>
+					<FormGroup>
+						<select
+							name="slct" id="slct"
+							onChange={e => _tshirtSizeChange(e, index)}
+						>
+							<option selected disabled>Choose T-shirt Size</option>
+							<option value="0">SM</option>
+							<option value="1">M</option>
+							<option value="2">L</option>
+							<option value="3">XL</option>
+							<option value="4">XXL</option>
+						</select>
+						{memberDataError[index].size ? <Error>{memberDataError[index].size}</Error> : null}
+					</FormGroup>
+					<FormGroup>
+						<Input
+							className="form-control-primary appliForm"
+							placeholder="Phone No:"
+							type="text"
+							defaultValue={member.phone}
+							onChange={(e) => { _memberDataChange(e, index, 'phone') }}
+						></Input>
+						{memberDataError[index].phone ? <Error>{memberDataError[index].phone}</Error> : null}
 					</FormGroup>
 					<FormGroup>
 						<Input

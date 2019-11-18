@@ -7,25 +7,77 @@ const isEmpty = (data) => {
     )
 }
 
+const isObjectHeavy = (obj) => {
+
+    console.log("We got an object as", obj);
+
+
+    for (let el of Object.values(obj)) {
+        console.log('Elements are', el);
+        if (!isEmpty(el)) return true;
+    }
+
+
+
+    return false;
+}
+
 
 const validateMemberData = (memberData) => {
-    const memberErrors = [{}, {}];
-    memberData.forEach((member, index) => {
-        if (index <= 1) {
-            if (isEmpty(member.name)) {
-                memberErrors[index].name = 'Provide name of member!';
+
+
+    if (isObjectHeavy(memberData[2])) {
+        console.log(Object.values(memberData[2]), 'are the values in the member data');
+        const memberErrors = [{}, {}, {}];
+        memberData.forEach((member, index) => {
+            if (index <= 2) {
+                if (isEmpty(member.name)) {
+                    memberErrors[index].name = 'Provide name of member!';
+                }
+                if (isEmpty(member.email)) {
+                    memberErrors[index].email = 'Provide email of member!';
+                }
+                if (isEmpty(member.phone)) {
+                    memberErrors[index].phone = 'Provide phone number of member!';
+                }
+                if (isEmpty(member.size)) {
+                    memberErrors[index].size = 'Provide T-shirt size of member!';
+                }
+                if (!member.photo || !member.photoLink) {
+                    memberErrors[index].photo = 'Provide photo of member!';
+                }
             }
-            if (isEmpty(member.email)) {
-                memberErrors[index].email = 'Provide email of member!';
-            }
-            if (!member.photo || !member.photoLink) {
-                memberErrors[index].photo = 'Provide photo of member!';
-            }
+        });
+        return {
+            isMemberDataValid: Object.values(memberErrors[0]).length === 0 && Object.values(memberErrors[1]).length === 0,
+            memberErrors
         }
-    })
-    return {
-        isMemberDataValid: Object.values(memberErrors[0]).length === 0 || Object.values(memberErrors[1]).lenght === 0,
-        memberErrors
+
+    } else {
+        const memberErrors = [{}, {}];
+        memberData.forEach((member, index) => {
+            if (index <= 1) {
+                if (isEmpty(member.name)) {
+                    memberErrors[index].name = 'Provide name of member!';
+                }
+                if (isEmpty(member.email)) {
+                    memberErrors[index].email = 'Provide email of member!';
+                }
+                if (isEmpty(member.phone)) {
+                    memberErrors[index].phone = 'Provide phone number of member!';
+                }
+                if (isEmpty(member.size)) {
+                    memberErrors[index].size = 'Provide T-shirt size of member!';
+                }
+                if (!member.photo || !member.photoLink) {
+                    memberErrors[index].photo = 'Provide photo of member!';
+                }
+            }
+        });
+        return {
+            isMemberDataValid: Object.values(memberErrors[0]).length === 0 && Object.values(memberErrors[1]).length === 0,
+            memberErrors
+        }
     }
 
 }

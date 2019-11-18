@@ -1,0 +1,34 @@
+/* Reset Select */
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    box-shadow: none;
+    border: 1px solid #c9c9c9;
+    border-radius: 20px;
+    width: 100%;
+    height: 37px;
+    padding: 0 18px;
+    font-size: 0.9em;
+    color: #ababab;
+    cursor: pointer
+}
+
+select:focus {
+    border-color: #2196f3;
+}
+
+
+/* Custom Select */
+.select {
+    position: relative;
+    display: flex;
+    width: 20em;
+    height: 3em;
+    line-height: 3;
+    background: #2c3e50;
+    overflow: hidden;
+    border-radius: .25em;
+}

@@ -22,11 +22,9 @@ const validateMemberData = (memberData) => {
                 memberErrors[index].photo = 'Provide photo of member!';
             }
         }
-
     })
-
     return {
-        isMemberDataValid: isEmpty(memberErrors),
+        isMemberDataValid: Object.values(memberErrors[0]).length === 0 || Object.values(memberErrors[1]).lenght === 0,
         memberErrors
     }
 
@@ -57,6 +55,7 @@ const validateApplicationData = (applicationData) => {
 }
 
 module.exports = {
+    isEmpty,
     validateMemberData,
     validateApplicationData,
 }

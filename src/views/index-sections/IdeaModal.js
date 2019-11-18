@@ -33,11 +33,11 @@ import { validateMemberData } from "../../validation/validate";
 function Javascript() {
 
 
-	const [formProgress, setFormProgress] = React.useState(3);
+	const [formProgress, setFormProgress] = React.useState(0);
 	const [choice, setChoice] = React.useState('');
-	const [submitLabel, setSubmitLabel] = React.useState('Submit');
+	let [submitLabel, setSubmitLabel] = React.useState('Submit');
 
-	const [applicationData, setApplicationData] = React.useState({
+	let [applicationData, setApplicationData] = React.useState({
 		ideaName: '',
 		teamName: '',
 		theme: '',
@@ -45,7 +45,7 @@ function Javascript() {
 		pdfLink: ''
 	});
 
-	const memberArr = [{
+	let memberArr = [{
 		photo: '',
 		photoLink: '',
 		name: '',
@@ -71,14 +71,18 @@ function Javascript() {
 		email: ''
 	}];
 
-	const [memberDataError, setMemberDataError] = React.useState([{}, {}, {}]);
-	const [applicationDataError, setApplicationDataError] = React.useState({});
+	let [memberDataError, setMemberDataError] = React.useState([{}, {}, {}]);
+	let [applicationDataError, setApplicationDataError] = React.useState({});
 
-	const [membersData, setMembersData] = React.useState(memberArr);
+	let [membersData, setMembersData] = React.useState(memberArr);
+	const [time, setTime] = React.useState(new Date().getTime());
+	console.log(time, 'is time now');
 
-	const [agreement, setAgreement] = React.useState(true);
+	let [agreement, setAgreement] = React.useState(false);
+	let [agreementError, setAgreementError] = React.useState('');
 
-	const _applicationDataChange = (e) => {
+
+	let _applicationDataChange = (e) => {
 
 		console.log("The name of form focused is", e.target.name);
 		if (e.target.name === 'pdf') {
@@ -93,42 +97,66 @@ function Javascript() {
 
 	const _memberDataChange = (e, index, type) => {
 
+		console.log("member data change is called")
+
 		if (type === 'photo') {
 
 			const tempData = membersData;
 			tempData[index].photo = e.target.files[0];
 			tempData[index].photoLink = URL.createObjectURL(e.target.files[0]);
-			setMemberDataError({ ...memberDataError, photo: '' });
 			setMembersData(tempData);
-			return
+
+			let tempErrorData = memberDataError;
+			tempErrorData[index].photo = '';
+			setMemberDataError(tempErrorData);
+			console.log("value updated si", membersData[index][type]);
+			setTime(new Date().getTime());
+			return;
 		}
+
 
 		const tempData = membersData;
 		tempData[index][type] = e.target.value;
 		setMembersData(tempData);
-		console.log("The whole state of the apps is now", tempData, membersData);
+		// console.log("The whole state of the apps is now", tempData, membersData);
+
+		const tempMemberDataError = memberDataError;
+		tempMemberDataError[index][type] = '';
+		console.log("value updated si", membersData[index][type]);
+		setTime(new Date().getTime());
+
+		setMemberDataError(tempMemberDataError);
 	}
 
 	const _continue = () => {
-		if (formProgress === 2) {
-			var { errors } = validateApplicationData(applicationData);
-			if (errors.theme) {
-				setApplicationDataError({ ...applicationDataError, theme: errors.theme })
+
+		if (formProgress === 1) {
+			if (!agreement) {
+				setAgreementError('You must agree to our terms and conditions to continue!');
 				return;
 			}
 		}
+
+		if (formProgress === 2) {
+			var appErrors = validateApplicationData(applicationData).errors;
+			if (appErrors.theme) {
+				setApplicationDataError({ ...applicationDataError, theme: appErrors.theme })
+				return;
+			}
+		}
+
 		if (formProgress === 3) {
 
 			var { isValid, errors } = validateApplicationData(applicationData);
 			var { isMemberDataValid, memberErrors } = validateMemberData(membersData);
 			if (!isValid || !isMemberDataValid) {
+				console.log('is things working?')
 				if (!isValid) {
-					console.log("erros are", errors);
+					// console.log("erros are", errors);
 					setApplicationDataError({ ...applicationDataError, ...errors });
-					console.log("Updated errors are", applicationDataError);
 				}
 				if (!isMemberDataValid) {
-					console.log("member errors are", memberErrors);
+					// console.log("member errors are", memberErrors);
 					setMemberDataError({ ...memberDataError, ...memberErrors });
 				}
 
@@ -200,8 +228,7 @@ function Javascript() {
 							defaultValue={member.name}
 							onChange={(e) => { _memberDataChange(e, index, 'name') }}
 						></Input>
-						{memberDataError[index].name ? <Error>{memberDataError[index].name}</Error> : null}
-
+						<Error>{memberDataError[index].name}</Error>
 					</FormGroup>
 					<FormGroup>
 						<Input
@@ -212,6 +239,10 @@ function Javascript() {
 							onChange={(e) => { _memberDataChange(e, index, 'email') }}
 						></Input>
 						{memberDataError[index].email ? <Error>{memberDataError[index].email}</Error> : null}
+						{
+							console.log(memberDataError[0].email, 'is the error found in name')
+
+						}
 
 					</FormGroup>
 					<FormGroup>
@@ -266,6 +297,9 @@ function Javascript() {
 		)
 	})
 
+
+	console.log("Rerendered");
+
 	return (
 		<>
 			<Container className='modalContainer'>
@@ -306,10 +340,18 @@ function Javascript() {
 									<Row>
 										<FormGroup check>
 											<Label check>
-												<Input checked={agreement} onChange={() => { setAgreement(!agreement) }} type="checkbox"></Input>
+												<Input checked={agreement} onChange={() => {
+
+													setAgreement(!agreement);
+													if (!agreement) {
+														setAgreementError('You must agree to our terms and conditions to continue!');
+													}
+												}} type="checkbox"></Input>
 												<span className="form-check-sign"></span>
 												I accept the <a href='codecamp2019.co/terms-and-conditions'>terms and conditions</a> of the CodeCamp 2019.
                                         </Label>
+
+											{!agreement ? <Error >{agreementError}</Error> : null}
 										</FormGroup>
 									</Row>
 								</ModalBody>

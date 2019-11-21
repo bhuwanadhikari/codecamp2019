@@ -9,6 +9,8 @@ import theme3 from '../../assets/img/theme3.png';
 
 import selectCss from '../../assets/css/selectCss.css';
 
+
+
 import {
 	Button,
 	FormGroup,
@@ -32,6 +34,7 @@ import { validateApplicationData } from "../../validation/validate";
 import { validateMemberData } from "../../validation/validate";
 
 // core components
+axios.defaults.withCredentials = true;
 
 function Javascript() {
 
@@ -89,6 +92,18 @@ function Javascript() {
 
 	let [agreement, setAgreement] = React.useState(false);
 	let [agreementError, setAgreementError] = React.useState('');
+
+	React.useEffect(() => {
+
+	}, []);
+
+	const toBase64 = file => new Promise((resolve, reject) => {
+		const reader = new FileReader();
+		reader.readAsDataURL(file);
+
+		reader.onload = () => resolve(reader.result);
+		reader.onerror = error => reject(error);
+	});
 
 
 	let _applicationDataChange = (e) => {
@@ -204,11 +219,18 @@ function Javascript() {
 
 	const _submit = () => {
 
-		console.log('here is all of the data of the application', {
-			...applicationData, team: membersData
-		});
+		let dataToBePosted;
 
-		if (submitLabel == 'Done') {
+		if (!membersData[2].name || !membersData[2].photo || !membersData[2].email) {
+			dataToBePosted = { ...applicationData, participants: [membersData[0], membersData[1]] };
+		} else {
+			dataToBePosted = { ...applicationData, participants: membersData };
+
+		}
+
+		console.log("Data to be posted are here", JSON.stringify(dataToBePosted));
+
+		if (submitLabel === 'Done') {
 			setFormProgress(0);
 			setSubmitLabel('Submit');
 			return;
@@ -216,17 +238,58 @@ function Javascript() {
 
 
 		if (submitLabel === 'Submit') {
-			setSubmitLabel('Submitting');
-			axios.post('', { ...membersData, team: applicationData })
+			// setSubmitLabel('Submitting');
+
+			const campData = new FormData();
+
+
+
+			const members = dataToBePosted.participants;
+
+			// for (let member in members) {
+			// 	// campData.append(`participants[${members.indexOf(member)}]['name']`, member.name);
+			// 	// campData.append(`participants[${members.indexOf(member)}]['size']`, member.size);
+			// 	// campData.append(`participants[${members.indexOf(member)}]['phone']`, member.phone);
+			// 	// campData.append(`participants[${members.indexOf(member)}]['address']`, member.address);
+			// 	// campData.append(`participants[${members.indexOf(member)}]['college']`, member.college);
+			// 	// campData.append(`participants[${members.indexOf(member)}]['roll']`, member.roll);
+			// 	// campData.append(`participants[${members.indexOf(member)}]['email']`, member.email);
+			// 	// campData.append(`participants[${members.indexOf(member)}]['photo']`, member.photo);
+
+			// 	campData.append(`member${}`)
+
+			// }
+
+			const fieldArray = ['name', 'size', 'phone', 'address', 'college', 'roll', 'email', 'photo'];
+
+			members.forEach((member, memberIndex) => {
+				fieldArray.forEach((field, fieldIndex) => {
+					campData.append(`${field}${memberIndex}`, member[field]);
+				})
+			})
+
+			campData.append('ideaName', dataToBePosted.ideaName);
+			campData.append('teamName', dataToBePosted.teamName);
+			campData.append('theme', dataToBePosted.ideaName);
+			campData.append('pdf', dataToBePosted.pdf);
+
+			for (let value of campData.values()) {
+				console.log(value, ' in the damp data');
+			}
+
+
+			axios.post('http://192.168.100.20:8000/teams/', campData)
 				.then((res) => {
 					console.log("Successfully submitted here");
+					console.log("Data submitted is", res.data);
+					setSubmitLabel('Done')
+
 				}).catch((err) => {
 					console.log("Error has been occured", err);
 				});
 		}
 		//api call to ma submit the form
 		//set submit label to submitted
-		setSubmitLabel('Done')
 	}
 
 
@@ -272,13 +335,14 @@ function Javascript() {
 						<select
 							name="slct" id="slct"
 							onChange={e => _tshirtSizeChange(e, index)}
+							defaultValue='0'
 						>
-							<option selected disabled>Choose T-shirt Size</option>
-							<option value="0">SM</option>
-							<option value="1">M</option>
-							<option value="2">L</option>
-							<option value="3">XL</option>
-							<option value="4">XXL</option>
+							<option value='0' disabled>Choose T-shirt Size</option>
+							<option value="SM">SM</option>
+							<option value="M">M</option>
+							<option value="L">L</option>
+							<option value="XL">XL</option>
+							<option value="XXL">XXL</option>
 						</select>
 						{memberDataError[index].size ? <Error>{memberDataError[index].size}</Error> : null}
 					</FormGroup>
@@ -367,7 +431,7 @@ function Javascript() {
 
 
 						{/* intro modal*/}
-						{formProgress == 1 ?
+						{formProgress === 1 ?
 							(<Modal isOpen={formProgress === 1} toggle={() => setFormProgress(0)} style={{ margin: '20px auto', border: '20px solid transparent', maxWidth: '800px' }}>
 								<div className="modal-header justify-content-center">
 									<button
@@ -426,7 +490,7 @@ function Javascript() {
 
 						{/* choice modal*/}
 
-						{formProgress == 2 ?
+						{formProgress === 2 ?
 							(<Modal isOpen={formProgress === 2} toggle={() => setFormProgress(0)} style={{ margin: '20px auto', border: '20px solid transparent', maxWidth: '800px' }}>
 								<div className="modal-header justify-content-center">
 									<button
@@ -468,7 +532,7 @@ function Javascript() {
 
 
 						{/* Main form modal*/}
-						{formProgress == 3 ?
+						{formProgress === 3 ?
 							(<Modal isOpen={formProgress === 3} toggle={() => setFormProgress(0)} style={{ margin: '20px auto', border: '20px solid transparent', maxWidth: '800px' }}>
 								<div className="modal-header justify-content-center">
 									<button
@@ -549,7 +613,7 @@ function Javascript() {
 
 						{/* Final modal*/}
 						{formProgress === 4 ?
-							(<Modal isOpen={formProgress == 4} toggle={() => setFormProgress(0)} style={{ margin: '20px auto', border: '20px solid transparent', maxWidth: '800px' }}>
+							(<Modal isOpen={formProgress === 4} toggle={() => setFormProgress(0)} style={{ margin: '20px auto', border: '20px solid transparent', maxWidth: '800px' }}>
 								<div className="modal-header justify-content-center">
 									<button
 										className="close"
@@ -565,15 +629,15 @@ function Javascript() {
 								<ModalBody>
 
 
-									{submitLabel == 'Submit' ?
+									{submitLabel === 'Submit' ?
 										(
 											<p className="isCentered">Check your form once again if anything is wrong.</p>
 										) : null}
-									{submitLabel == 'Submit' ?
+									{submitLabel === 'Submit' ?
 										(
 											<p className=" blackText pureCenter">If everything is okay, You can submit the form now.</p>
 										) : null}
-									{submitLabel == 'Done' ?
+									{submitLabel === 'Done' ?
 										(
 											<p className=" blackText pureCenter">Your application has been submitted and we will contact you after shortlisting. Thankyou!!</p>
 										) : null}

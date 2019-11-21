@@ -3,13 +3,59 @@ import React from "react";
 
 // reactstrap components
 import { Container } from "reactstrap";
+import axios from "axios";
 
 function DarkFooter() {
+
+  const [pageCount, setPageCount] = React.useState(null);
+
+
+  React.useEffect(() => {
+
+
+    let data = {
+      time: new Date()
+    }
+
+    data.time = data.time.toISOString()
+
+    console.log(data, 'what is thime now');
+    console.log('---------------------------');
+
+
+    (async () => {
+      await axios.get('http://192.168.100.20:8000/count/')
+        .then((res) => {
+          setPageCount(res.data);
+          console.log("successfully received the page count", res.data);
+        }).catch((err) => {
+          console.log(err, 'error  in the get of data');
+        });
+
+
+      await setTimeout(async () => {
+        await axios.post('http://192.168.100.20:8000/count/', data)
+          .then((res) => {
+            setPageCount(res.data);
+            console.log("successfully page count increased", res.data);
+          }).catch((err) => {
+            console.log(err, 'is the error in the page count increase');
+          });
+      }, 4000)
+
+
+    })();
+
+  }, []);
+
   return (
     <footer className="footer" data-background-color="black">
       <Container>
-        <nav>
-          <ul>
+        <nav style={{ width: '100%' }}>
+          <ul style={{
+            display: 'flex',
+            justifyContent: 'space-around'
+          }}>
             <li>
               <a
                 href="https://www.codecamp2019.co"
@@ -20,31 +66,25 @@ function DarkFooter() {
             </li>
 
             <li className="ralewayFonted" style={{ paddingLeft: '20px', color: 'lavenderblush', fontSize: '0.9em' }}>
-              Page Visits: 113 times <span style={{ color: 'orange' }}>(Not working for now.)</span>
+              Page Visits: {pageCount} times
+            </li>
+            <li className="copyright" id="copyright" >
+              Hello Worlded By: {" "}
+              <a
+                href="https://bhuwanadhikari.com.np"
+                target="_blank"
+                style={{ color: 'silver' }}
+              >
+                Bhuwan Adhikari
+          </a>
+
             </li>
 
           </ul>
         </nav>
-        <div className="copyright" id="copyright">
-          {/* © {new Date().getFullYear()}, Designed by{" "}
-          <a
-            href="https://www.invisionapp.com?ref=nukr-dark-footer"
-            target="_blank"
-          >
-            Invision
-          </a> 
-          .*/}Hello Worlded By: {" "}
-          <a
-            href="https://bhuwanadhikari.com.np"
-            target="_blank"
-            style={{ color: 'silver' }}
-          >
-            Bhuwan Adhikari
-          </a>
 
-        </div>
       </Container>
-    </footer>
+    </footer >
   );
 }
 

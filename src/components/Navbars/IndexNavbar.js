@@ -41,6 +41,10 @@ function IndexNavbar() {
 			window.removeEventListener("scroll", updateNavbarColor);
 		};
 	});
+
+
+
+
 	return (
 		<>
 

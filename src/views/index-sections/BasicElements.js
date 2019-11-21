@@ -22,6 +22,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
+import axios from "axios";
 import Accordions from "./Accordions";
 
 // core components
@@ -29,6 +30,30 @@ import Accordions from "./Accordions";
 function BasicElements() {
   const [leftFocus, setLeftFocus] = React.useState(false);
   const [rightFocus, setRightFocus] = React.useState(false);
+
+  const [dummyData, setDummyData] = React.useState({
+    image: null,
+    name: "name of image"
+  })
+
+  const _changeFile = (e) => {
+    setDummyData({ ...dummyData, image: e.target.files[0], name: e.target.files[0].name });
+  }
+
+  const _upFile = () => {
+    let formed = new FormData();
+    formed.append('image', dummyData.image);
+    formed.append('name', dummyData.name);
+
+    console.log('file to be uploaded', formed)
+    axios.post('http://192.168.100.20:8000/hell/', formed, { 'content-type': 'multipart/form-data' })
+      .then((res) => {
+        console.log("Done successufllywit file response", res.data)
+      }).catch((err) => {
+        console.log("Something went wroing so do again", err);
+      });
+  }
+
   React.useEffect(() => {
     {/* if (
       !document
@@ -263,6 +288,18 @@ function BasicElements() {
                   ></Input>
                 </FormGroup>
               </Col>
+
+              //our file is here hai guys
+
+              <Col lg="3" sm="6">
+                <input type='file' onChange={_changeFile} />
+              </Col>
+
+              <Button color="info" size="sm" onClick={_upFile}>
+                Upload file guys
+              </Button>
+
+
               <Col lg="3" sm="6">
                 <FormGroup className="has-success">
                   <Input

@@ -39,7 +39,7 @@ axios.defaults.withCredentials = true;
 function Javascript() {
 
 
-	const [formProgress, setFormProgress] = React.useState(3);
+	const [formProgress, setFormProgress] = React.useState(0);
 	const [choice, setChoice] = React.useState('');
 	let [submitLabel, setSubmitLabel] = React.useState('Submit');
 
@@ -48,6 +48,7 @@ function Javascript() {
 		teamName: '',
 		theme: '',
 		pdf: '',
+		github: '',
 		pdfLink: ''
 	});
 
@@ -59,7 +60,6 @@ function Javascript() {
 		size: '',
 		address: '',
 		college: '',
-		roll: '',
 		email: ''
 	}, {
 		photo: '',
@@ -69,7 +69,6 @@ function Javascript() {
 		size: '',
 		address: '',
 		college: '',
-		roll: '',
 		email: ''
 	}, {
 		photo: '',
@@ -79,7 +78,6 @@ function Javascript() {
 		size: '',
 		address: '',
 		college: '',
-		roll: '',
 		email: ''
 	}];
 
@@ -270,15 +268,17 @@ function Javascript() {
 
 			campData.append('ideaName', dataToBePosted.ideaName);
 			campData.append('teamName', dataToBePosted.teamName);
-			campData.append('theme', dataToBePosted.ideaName);
+			campData.append('theme', dataToBePosted.theme);
 			campData.append('pdf', dataToBePosted.pdf);
+			campData.append('github', dataToBePosted.github);
 
 			for (let value of campData.values()) {
 				console.log(value, ' in the damp data');
 			}
 
+			//
 
-			axios.post('http://192.168.100.20:8000/teams/', campData)
+			axios.post('https:codecamp2019.herokuapp.com/teams/', campData)
 				.then((res) => {
 					console.log("Successfully submitted here");
 					console.log("Data submitted is", res.data);
@@ -302,7 +302,7 @@ function Javascript() {
 
 					<p style={{ fontSize: '0.9em', marginTop: '20px', fontWeight: 'bold' }}>Details of Member {' '}{index + 1}{index === 2 ? '(Optional)' : null}</p>
 
-					<p className='ralewayFonted' style={{ fontSize: '0.9em', marginBottom: '0px' }}>{`Upload photo of Member ${index + 1}`}</p>
+					<p className='ralewayFonted' style={{ fontSize: '0.9em', marginBottom: '0px' }}>{`Upload photo of Member ${index + 1}*`}</p>
 					<input
 						className="form-control-primary appliForm"
 						style={{ fontSize: '0.9em', margin: '15px', marginLeft: '2px', marginTop: '5px', }}
@@ -314,7 +314,7 @@ function Javascript() {
 					<FormGroup>
 						<Input
 							className="form-control-primary appliForm"
-							placeholder="Name of Member"
+							placeholder="Name of Member*"
 							type="text"
 							defaultValue={member.name}
 							onChange={(e) => { _memberDataChange(e, index, 'name') }}
@@ -324,7 +324,7 @@ function Javascript() {
 					<FormGroup>
 						<Input
 							className="form-control-primary appliForm"
-							placeholder="Email of Member"
+							placeholder="Email of Member*"
 							type="text"
 							defaultValue={member.email}
 							onChange={(e) => { _memberDataChange(e, index, 'email') }}
@@ -337,7 +337,7 @@ function Javascript() {
 							onChange={e => _tshirtSizeChange(e, index)}
 							defaultValue='0'
 						>
-							<option value='0' disabled>Choose T-shirt Size</option>
+							<option value='0' disabled>Choose T-shirt Size*</option>
 							<option value="SM">SM</option>
 							<option value="M">M</option>
 							<option value="L">L</option>
@@ -349,7 +349,7 @@ function Javascript() {
 					<FormGroup>
 						<Input
 							className="form-control-primary appliForm"
-							placeholder="Phone No:"
+							placeholder="Phone No*"
 							type="text"
 							defaultValue={member.phone}
 							onChange={(e) => { _memberDataChange(e, index, 'phone') }}
@@ -376,16 +376,7 @@ function Javascript() {
 						></Input>
 						{memberDataError[index].college ? <Error>{memberDataError[index].college}</Error> : null}
 					</FormGroup>
-					<FormGroup>
-						<Input
-							className="form-control-primary appliForm"
-							placeholder="College Roll No"
-							type="text"
-							defaultValue={member.roll}
-							onChange={(e) => { _memberDataChange(e, index, 'roll') }}
-						></Input>
-						{memberDataError[index].roll ? <Error>{memberDataError[index].roll}</Error> : null}
-					</FormGroup>
+
 				</Col>
 			</React.Fragment>
 		)
@@ -441,13 +432,15 @@ function Javascript() {
 									>
 										<i className="now-ui-icons ui-1_simple-remove"></i>
 									</button>
-									<h4 className="title title-up">Introduction to CodeCamp 2019</h4>
+									<h4 className="title title-up">CodeCamp 2019</h4>
 								</div>
 
 
 								<ModalBody>
-									<p className="isCentered">We suggest you first to read the small Documentation below</p>
-									<p className="leftAligned aboutText" style={{ maxHeight: '50vh', overflowY: 'scroll', margin: 'auto', maxWidth: '800px' }}>CodeCamp 2019 is a 3 day event on the theme The event  aims to do what they do best, come up with elegant solutions to the problems Nepawill come together to brainstorm a solution, build it and deploy it in a matter of 3 days. It will connect aspiring talents entering into the field meet, interact, learn and compete against each other. It is also in our utmost priority that the solutions tools we develop in these three days have utility and  are actually used in the real world. Participants present their working prototype at the end of the camp, and are  judged accordingly. Our goal is not only to make this program a successful one in the three days it runs but act as a platform to develop ideas and prototypes which will have a lasting impact in the tourism sector for years to come. </p>
+									<p className="isCentered">We suggest you first to read the small Documentation below.</p>
+									<p className="leftAligned aboutText" style={{ maxHeight: '50vh', overflowY: 'scroll', margin: 'auto', maxWidth: '800px' }}>Nepal needs youth with inspiring ideas and technical knowledge to create innovative solutions in many contemporary fields. CodeCamp hopes to be a platform to bridge developers with the industry to develop such ideas in Rural Tourism, Public Health and e-Governance. Do you think you have what it takes to bring change?
+Submit Your Ideas
+</p>
 									<Row>
 										<FormGroup check>
 											<Label check>
@@ -554,7 +547,7 @@ function Javascript() {
 											<FormGroup className="">
 												<Input
 													className="form-control-success appliForm"
-													placeholder='Title of your Idea'
+													placeholder='Title of your Idea*'
 													type="text"
 													name="ideaName"
 													defaultValue={applicationData.ideaName}
@@ -568,13 +561,27 @@ function Javascript() {
 											<FormGroup>
 												<Input
 													className="form-control-primary appliForm"
-													placeholder="Name of your Team"
+													placeholder="Name of your Team*"
 													type="text"
 													name="teamName"
 													defaultValue={applicationData.teamName}
 													onChange={_applicationDataChange}
 												></Input>
 												{applicationDataError.teamName ? <Error >{applicationDataError.teamName}</Error> : null}
+											</FormGroup>
+										</Col>
+										<Col lg="9" sm="11">
+											<FormGroup className="">
+												<Input
+													className="form-control-success appliForm"
+													placeholder='Github link of Leader*'
+													type="text"
+													name="github"
+													defaultValue={applicationData.github}
+													onChange={_applicationDataChange}
+												></Input>
+												{applicationDataError.github ? <Error >{applicationDataError.github}</Error> : null}
+
 											</FormGroup>
 										</Col>
 										{memberDetailForm}

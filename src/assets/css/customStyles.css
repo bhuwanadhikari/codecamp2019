@@ -37,7 +37,7 @@
     border: 2px solid transparent;
     cursor: pointer;
     transition: all 0.3s ease-in;
-    padding: 20px
+    padding: 35px
 }
 
 .choice:hover {

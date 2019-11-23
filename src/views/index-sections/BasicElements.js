@@ -85,7 +85,7 @@ function BasicElements() {
           <div id="about" style={{ height: '1px', width: '100%', position: 'relative', top: '-60px' }}></div>
 
           <h2 className="topMarginedTitle isCentered" >About</h2>
-          <p className="leftAligned aboutText" style={{ margin: 'auto', maxWidth: '800px' }}>CodeCamp 2019 is a 3 day event on the theme “Rural Tourism” focusing on the development of innovative solutions and tools in order to develop and promote rural tourism in Nepal. We hope to create a platform where participants can create tools and services which can boost the number of tourists who visit the rural areas of Nepal and also extend the time period of their stay. The event  aims to bring together the best innovative and creative young minds from the IT sector and let them do what they do best, come up with elegant solutions to the problems Nepal faces in the sector of Tourism, especially in the rural areas. The participants will come together to brainstorm a solution, build it and deploy it in a matter of 3 days. It will connect aspiring talents entering into the field meet, interact, learn and compete against each other. It is also in our utmost priority that the solutions tools we develop in these three days have utility and  are actually used in the real world. Participants present their working prototype at the end of the camp, and are  judged accordingly. Our goal is not only to make this program a successful one in the three days it runs but act as a platform to develop ideas and prototypes which will have a lasting impact in the tourism sector for years to come. </p>
+          <p className="leftAligned aboutText" style={{ margin: 'auto', maxWidth: '800px' }}>CodeCamp 2019 is a three day competitive coding competition which is going to be held from December 24 to December 26 as a pre-event of Vector:Direct Your Vision. Organized by Innovative Computer Engineering Students Society and Club of Technical Students, the program hopes to bring out the most innovative minds currently studying in various IT related fields in Nepal and Challenge them to come up with working prototypes that impacts Rural Tourism, Public Health and E-Governance in a substantial way. CodeCamp hopes to inspire youths currently studying in the IT sector to involve themselves to develop and deploy technical solutions to solve contemporary issues plaguing the country. CodeCamp 2019 aims to be a platform for collaborative learning involving students and mentors who come from major IT Companies of the country.</p>
 
           <div id="sponsors" style={{ height: '1px', width: '100%', position: 'relative', top: '-60px' }}></div>
           <h2 className="topMarginedTitle isCentered"  >Sponsors</h2>
@@ -206,7 +206,7 @@ function BasicElements() {
 
 
 
-
+          {/*
           <Row>
             <Col md="10">
               <Button color="info" type="button">
@@ -455,7 +455,7 @@ function BasicElements() {
 
 
 
-
+*/}
 
 
 

@@ -56,8 +56,9 @@ function IndexNavbar() {
 							target="_blank"
 							id="navbar-brand"
 						>
-							Codecamp 2019
-            			</NavbarBrand>
+
+
+						</NavbarBrand>
 
 						<button
 							className="navbar-toggler navbar-toggler"

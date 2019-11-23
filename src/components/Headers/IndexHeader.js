@@ -3,10 +3,17 @@ import React from "react";
 
 // reactstrap components
 import { Container } from "reactstrap";
+import CountDown from "./CountDown";
 
 // core components
 function IndexHeader() {
   let pageHeader = React.createRef();
+
+  const [timeLeft, setTimeLeft] = React.useState({
+    hrs: 43,
+    mins: 44,
+    secs: 34
+  })
 
   React.useEffect(() => {
     if (window.innerWidth > 991) {
@@ -34,8 +41,11 @@ function IndexHeader() {
         ></div>
         <Container>
           <div className="content-center brand">
+            <img
+              className="n-logo"
 
-            <h1 className="h1-seo">CODECAMP 2019</h1>
+              src={require("assets/img/whitelogo.png")}
+            ></img>
             <h3>Poush 8 - Poush 10</h3>
           </div>
         </Container>

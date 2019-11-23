@@ -9,16 +9,13 @@ const isEmpty = (data) => {
 
 const isObjectHeavy = (obj) => {
 
-    console.log("We got an object as", obj);
+    // console.log("We got an object as", obj);
 
 
     for (let el of Object.values(obj)) {
         console.log('Elements are', el);
         if (!isEmpty(el)) return true;
     }
-
-
-
     return false;
 }
 
@@ -26,8 +23,10 @@ const isObjectHeavy = (obj) => {
 const validateMemberData = (memberData) => {
 
 
+    console.log("here is the result that if the object is heavy or not", isObjectHeavy(memberData[2]));
+
     if (isObjectHeavy(memberData[2])) {
-        console.log(Object.values(memberData[2]), 'are the values in the member data');
+        // console.log(Object.values(memberData[2]), 'are the values in the member data');
         const memberErrors = [{}, {}, {}];
         memberData.forEach((member, index) => {
             if (index <= 2) {
@@ -54,7 +53,7 @@ const validateMemberData = (memberData) => {
         }
 
     } else {
-        const memberErrors = [{}, {}];
+        const memberErrors = [{}, {}, {}];
         memberData.forEach((member, index) => {
             if (index <= 1) {
                 if (isEmpty(member.name)) {

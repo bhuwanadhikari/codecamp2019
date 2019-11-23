@@ -37,7 +37,7 @@
     border: 2px solid transparent;
     cursor: pointer;
     transition: all 0.3s ease-in;
-    padding: 40px
+    padding: 20px
 }
 
 .choice:hover {
@@ -48,6 +48,8 @@
 .choice:hover .choiceName {
     color: #636363
 }
+
+.choiceImg {}
 
 .bolded {
     font-weight: bold;

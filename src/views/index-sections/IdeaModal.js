@@ -39,7 +39,7 @@ axios.defaults.withCredentials = true;
 function Javascript() {
 
 
-	const [formProgress, setFormProgress] = React.useState(0);
+	const [formProgress, setFormProgress] = React.useState(3);
 	const [choice, setChoice] = React.useState('');
 	let [submitLabel, setSubmitLabel] = React.useState('Submit');
 
@@ -300,12 +300,12 @@ function Javascript() {
 			<React.Fragment key={index}>
 				<Col md='4'>
 
-					<p style={{ fontSize: '0.9em', marginTop: '20px' }}>Details of Member {' '}{index + 1}{index === 2 ? '(Optional)' : null}</p>
+					<p style={{ fontSize: '0.9em', marginTop: '20px', fontWeight: 'bold' }}>Details of Member {' '}{index + 1}{index === 2 ? '(Optional)' : null}</p>
 
-					<p className='aboutText' style={{ fontSize: '0.9em', marginBottom: '5px' }}>{`Upload photo of Member ${index + 1}`}</p>
+					<p className='ralewayFonted' style={{ fontSize: '0.9em', marginBottom: '0px' }}>{`Upload photo of Member ${index + 1}`}</p>
 					<input
 						className="form-control-primary appliForm"
-						style={{ fontSize: '0.9em', margin: '10px', marginTop: 0 }}
+						style={{ fontSize: '0.9em', margin: '15px', marginLeft: '2px', marginTop: '5px', }}
 						type="file"
 						name='photo'
 						onChange={(e) => { _memberDataChange(e, index, 'photo') }}
@@ -447,7 +447,7 @@ function Javascript() {
 
 								<ModalBody>
 									<p className="isCentered">We suggest you first to read the small Documentation below</p>
-									<p className="leftAligned aboutText" style={{ maxHeight: '50vh', overflowY: 'scroll', margin: 'auto', maxWidth: '800px' }}>CodeCamp 2019 is a 3 day event on the theme “Rural Tourism” focusing on the development of innovative solutions and tools in order to develop and promote rural tourism in Nepal. We hope to create a platform where participants can create tools and services which can boost the number of tourists who visit the rural areas of Nepal and also extend the time period of their stay. The event  aims to bring together the best innovative and creative young minds from the IT sector and let them do what they do best, come up with elegant solutions to the problems Nepal faces in the sector of Tourism, especially in the rural areas. The participants will come together to brainstorm a solution, build it and deploy it in a matter of 3 days. It will connect aspiring talents entering into the field meet, interact, learn and compete against each other. It is also in our utmost priority that the solutions tools we develop in these three days have utility and  are actually used in the real world. Participants present their working prototype at the end of the camp, and are  judged accordingly. Our goal is not only to make this program a successful one in the three days it runs but act as a platform to develop ideas and prototypes which will have a lasting impact in the tourism sector for years to come. </p>
+									<p className="leftAligned aboutText" style={{ maxHeight: '50vh', overflowY: 'scroll', margin: 'auto', maxWidth: '800px' }}>CodeCamp 2019 is a 3 day event on the theme The event  aims to do what they do best, come up with elegant solutions to the problems Nepawill come together to brainstorm a solution, build it and deploy it in a matter of 3 days. It will connect aspiring talents entering into the field meet, interact, learn and compete against each other. It is also in our utmost priority that the solutions tools we develop in these three days have utility and  are actually used in the real world. Participants present their working prototype at the end of the camp, and are  judged accordingly. Our goal is not only to make this program a successful one in the three days it runs but act as a platform to develop ideas and prototypes which will have a lasting impact in the tourism sector for years to come. </p>
 									<Row>
 										<FormGroup check>
 											<Label check>
@@ -582,7 +582,7 @@ function Javascript() {
 											<p className='aboutText' style={{ fontSize: '0.9em', marginBottom: '5px' }}>{`Upload pdf of your proposal`}</p>
 											<input
 												className="form-control-primary appliForm"
-												style={{ fontSize: '0.9em', margin: '10px', marginTop: 0 }}
+												style={{ fontSize: '0.9em', margin: '15px', marginTop: 0 }}
 												type="file"
 												name='pdf'
 												onChange={_applicationDataChange}

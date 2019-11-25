@@ -56,8 +56,8 @@ function IndexNavbar() {
 							target="_blank"
 							id="navbar-brand"
 						>
-
-
+							CODECAMP 2019
+	
 						</NavbarBrand>
 
 						<button

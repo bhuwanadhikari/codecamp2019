@@ -2,7 +2,7 @@
 import React from "react";
 
 // reactstrap components
-import { Container } from "reactstrap";
+import { Container, Col } from "reactstrap";
 import axios from "axios";
 
 function DarkFooter() {
@@ -56,31 +56,30 @@ function DarkFooter() {
             display: 'flex',
             justifyContent: 'space-around'
           }}>
-            <li>
+            <li className="footerContent">
               <a
                 href="https://www.codecamp2019.co"
                 target="_blank"
               >
                 CodeCamp 2019
-              </a>
+                  </a>
             </li>
 
-            <li className="ralewayFonted" style={{ paddingLeft: '20px', color: 'lavenderblush', fontSize: '0.9em' }}>
+            <li className="ralewayFonted footerContent" style={{ paddingLeft: '0', color: 'lavenderblush', fontSize: '0.9em' }}>
               Page Visits: {pageCount} times
-            </li>
-            <li className="copyright" id="copyright" >
-              Hello Worlded By: {" "}
-              <a
-                href="https://bhuwanadhikari.com.np"
-                target="_blank"
-                style={{ color: 'silver' }}
-              >
-                Bhuwan Adhikari
-          </a>
-
-            </li>
-
+              </li>
           </ul>
+          <div className="authorContent"  >
+            Hello Worlded By: {" "}
+            <a
+              href="https://bhuwanadhikari.com.np"
+              target="_blank"
+              style={{ color: 'silver' }}
+            >
+              Bhuwan Adhikari
+              </a>
+
+          </div>
         </nav>
 
       </Container>

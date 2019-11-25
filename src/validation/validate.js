@@ -24,8 +24,6 @@ const isObjectHeavy = (obj) => {
 
 
 const validateMemberData = (memberData) => {
-
-
     console.log("here is the result that if the object is heavy or not", isObjectHeavy(memberData[2]));
 
     if (isObjectHeavy(memberData[2])) {
@@ -33,21 +31,45 @@ const validateMemberData = (memberData) => {
         const memberErrors = [{}, {}, {}];
         memberData.forEach((member, index) => {
             if (index <= 2) {
+
+                //Name of member
                 if (isEmpty(member.name)) {
                     memberErrors[index].name = 'Provide name of member!';
+                } else if (member.name.length > 30) {
+                    memberErrors[index].name = 'Name should be less than 30 characters long!'
                 }
+
+                //Email validation
                 if (isEmpty(member.email)) {
                     memberErrors[index].email = 'Provide email of member!';
                 } else if (!validator.isEmail(member.email)) {
                     memberErrors[index].email = 'Provide a valid email!'
                 }
+
+                //Phone no validation
                 if (isEmpty(member.phone)) {
                     memberErrors[index].phone = 'Provide phone number of member!';
+                } else if (member.phone.length > 14) {
+                    memberErrors[index].phone = 'Phone no. should be less than 14 characters long!'
                 }
+
+                //Address validation
+                if (member.address.length > 30) {
+                    memberErrors[index].address = 'Address should be less than 30 characters long!'
+                }
+
+                //College validation
+                if (member.college.length > 30) {
+                    memberErrors[index].college = 'Address should be less than 30 characters long!'
+                }
+
+                //Size validation
                 if (isEmpty(member.size)) {
                     memberErrors[index].size = 'Provide T-shirt size of member!';
                 }
 
+
+                //Photo validation
                 const img = member.photo;
                 const isPhotoValid =
                     img.type === 'image/jpeg' ||
@@ -72,21 +94,44 @@ const validateMemberData = (memberData) => {
         const memberErrors = [{}, {}, {}];
         memberData.forEach((member, index) => {
             if (index <= 1) {
+
+                //Name validation
                 if (isEmpty(member.name)) {
                     memberErrors[index].name = 'Provide name of member!';
+                } else if (member.name.length > 30) {
+                    memberErrors[index].name = 'Name should be less than 30 characters long!'
                 }
+
+                //Email validation
                 if (isEmpty(member.email)) {
                     memberErrors[index].email = 'Provide email of member!';
                 } else if (!validator.isEmail(member.email)) {
                     memberErrors[index].email = 'Provide a valid email!'
                 }
+
+                //Phone no validation
                 if (isEmpty(member.phone)) {
                     memberErrors[index].phone = 'Provide phone number of member!';
+                } else if (member.phone.length > 14) {
+                    memberErrors[index].phone = 'Phone no. should be less than 14 characters long!'
                 }
+
+                //Address validation
+                if (member.address.length > 30) {
+                    memberErrors[index].address = 'Address should be less than 30 characters long!'
+                }
+
+                //College validation
+                if (member.college.length > 30) {
+                    memberErrors[index].college = 'Address should be less than 30 characters long!'
+                }
+
+                //T-Shirt Size validation
                 if (isEmpty(member.size)) {
                     memberErrors[index].size = 'Provide T-shirt size of member!';
                 }
 
+                //Photo validation
                 const img = member.photo;
                 const isPhotoValid =
                     img.type === 'image/jpeg' ||
@@ -116,18 +161,33 @@ const validateApplicationData = (applicationData) => {
 
     console.log("File size is given as", applicationData.pdf.size);
 
+    //Theme validation
     if (isEmpty(applicationData.theme)) {
         errors.theme = 'Select one of the theme to continue!';
     }
+
+    //Team name validation
     if (isEmpty(applicationData.teamName)) {
         errors.teamName = 'You must have team name!';
+    } else if (applicationData.teamName.length > 30) {
+        errors.teamName = 'Team name should be less than 30 characters long!'
     }
+
+    //ideaName validation
     if (isEmpty(applicationData.ideaName)) {
-        errors.ideaName = 'Please enter the title of your project!';
+        errors.ideaName = 'Please enter the title of your Idea!';
+    } else if (applicationData.ideaName.length > 30) {
+        errors.ideaName = 'Idea name should be less than 30 characters long!'
     }
+
+    //githublink validation
     if (isEmpty(applicationData.github)) {
-        errors.github = 'Please enter the github link any one of the member!';
+        errors.github = 'Please enter the github link of any one of the member!';
+    } else if (applicationData.github.length > 50) {
+        errors.github = 'Github link should be less than 50 characters long!'
     }
+
+    //pdf validation
     if (!applicationData.pdf || !applicationData.pdfLink) {
         errors.pdf = 'You must submit the proposal of your project!'
     } else if (applicationData.pdf.type !== 'application/pdf') {

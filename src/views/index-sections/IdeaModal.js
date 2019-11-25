@@ -6,6 +6,8 @@ import axios from "axios";
 import theme1 from '../../assets/img/theme1.png';
 import theme2 from '../../assets/img/theme2.png';
 import theme3 from '../../assets/img/theme3.png';
+import { isEmpty } from "../../validation/validate";
+
 
 import selectCss from '../../assets/css/selectCss.css';
 
@@ -33,6 +35,7 @@ import Error from "../../components/Error/Error";
 import { validateApplicationData } from "../../validation/validate";
 import { validateMemberData } from "../../validation/validate";
 
+
 // core components
 axios.defaults.withCredentials = true;
 
@@ -42,6 +45,7 @@ function Javascript() {
 	const [formProgress, setFormProgress] = React.useState(0);
 	const [choice, setChoice] = React.useState('');
 	let [submitLabel, setSubmitLabel] = React.useState('Submit');
+	const [submitFailed, setSubmitFailed] = React.useState('false');
 
 	let [applicationData, setApplicationData] = React.useState({
 		ideaName: '',
@@ -219,7 +223,7 @@ function Javascript() {
 
 		let dataToBePosted;
 
-		if (!membersData[2].name || !membersData[2].photo || !membersData[2].email) {
+		if (isEmpty(membersData[2].name) || isEmpty(membersData[2].photo) || isEmpty(membersData[2].email)) {
 			dataToBePosted = { ...applicationData, participants: [membersData[0], membersData[1]] };
 		} else {
 			dataToBePosted = { ...applicationData, participants: membersData };
@@ -235,8 +239,8 @@ function Javascript() {
 		}
 
 
-		if (submitLabel === 'Submit') {
-			// setSubmitLabel('Submitting');
+		if (submitLabel === 'Submit' || submitLabel === 'Re-Submit') {
+			setSubmitLabel('Submitting');
 
 			const campData = new FormData();
 
@@ -244,21 +248,8 @@ function Javascript() {
 
 			const members = dataToBePosted.participants;
 
-			// for (let member in members) {
-			// 	// campData.append(`participants[${members.indexOf(member)}]['name']`, member.name);
-			// 	// campData.append(`participants[${members.indexOf(member)}]['size']`, member.size);
-			// 	// campData.append(`participants[${members.indexOf(member)}]['phone']`, member.phone);
-			// 	// campData.append(`participants[${members.indexOf(member)}]['address']`, member.address);
-			// 	// campData.append(`participants[${members.indexOf(member)}]['college']`, member.college);
-			// 	// campData.append(`participants[${members.indexOf(member)}]['roll']`, member.roll);
-			// 	// campData.append(`participants[${members.indexOf(member)}]['email']`, member.email);
-			// 	// campData.append(`participants[${members.indexOf(member)}]['photo']`, member.photo);
 
-			// 	campData.append(`member${}`)
-
-			// }
-
-			const fieldArray = ['name', 'size', 'phone', 'address', 'college', 'roll', 'email', 'photo'];
+			const fieldArray = ['name', 'size', 'phone', 'address', 'college', 'email', 'photo'];
 
 			members.forEach((member, memberIndex) => {
 				fieldArray.forEach((field, fieldIndex) => {
@@ -283,13 +274,14 @@ function Javascript() {
 					console.log("Successfully submitted here");
 					console.log("Data submitted is", res.data);
 					setSubmitLabel('Done')
+					setSubmitFailed(false);
 
 				}).catch((err) => {
 					console.log("Error has been occured", err);
+					setSubmitLabel('Re-Submit');
+					setSubmitFailed(true);
 				});
 		}
-		//api call to ma submit the form
-		//set submit label to submitted
 	}
 
 
@@ -636,17 +628,22 @@ Submit Your Ideas
 								<ModalBody>
 
 
-									{submitLabel === 'Submit' ?
+
+									{submitLabel === 'Submit' && submitFailed !== true ?
 										(
-											<p className="isCentered">Check your form once again if anything is wrong.</p>
-										) : null}
-									{submitLabel === 'Submit' ?
-										(
-											<p className=" blackText pureCenter">If everything is okay, You can submit the form now.</p>
+											<p className=" blackText pureCenter">Make sure that everything you entered is okay. If yes, You can submit the form now.</p>
 										) : null}
 									{submitLabel === 'Done' ?
 										(
 											<p className=" blackText pureCenter">Your application has been submitted and we will contact you after shortlisting. Thankyou!!</p>
+										) : null}
+									{submitFailed === true && submitLabel !== 'Submitting' && submitLabel !== 'Done' ?
+										(
+											<p className=" blackText pureCenter">Something went wrong, Please try again later! For more, mail us at contact@codecamp2019.co</p>
+										) : null}
+									{submitLabel === 'Submitting' ?
+										(
+											<p className=" blackText pureCenter">Processing your form. Be Patient!!</p>
 										) : null}
 
 

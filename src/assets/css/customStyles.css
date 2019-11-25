@@ -72,3 +72,16 @@
 
 
 }
+
+
+.footerContent {
+    text-align: center;
+    text-decoration: none;
+}
+
+.authorContent {
+    text-align: center;
+    display: block;
+    font-size: 0.8em;
+    padding-top: 10px;
+}

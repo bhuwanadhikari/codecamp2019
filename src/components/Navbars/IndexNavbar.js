@@ -53,11 +53,10 @@ function IndexNavbar() {
 					<div className="navbar-translate">
 						<NavbarBrand
 							href="https://codecamp2019.co"
-							target="_blank"
 							id="navbar-brand"
 						>
 							CODECAMP 2019
-	
+
 						</NavbarBrand>
 
 						<button

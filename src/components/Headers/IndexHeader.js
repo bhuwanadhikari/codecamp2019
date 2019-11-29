@@ -46,7 +46,7 @@ function IndexHeader() {
 
               src={require("assets/img/whitelogo.png")}
             ></img>
-            <h3>Poush 8 - Poush 10</h3>
+            <h3 style={{ marginTop: '15px' }}>Poush 9 - Poush 11</h3>
           </div>
         </Container>
       </div>

@@ -23,14 +23,46 @@ const isObjectHeavy = (obj) => {
 }
 
 
+const validateSendMessageData = (sendMessageData) => {
+    let errors = {};
+
+    if (sendMessageData.name.length > 30) {
+        errors.name = 'Provide a shorter name!'
+    }
+
+    if (isEmpty(sendMessageData.email)) {
+        errors.email = 'You must enter your email!'
+    } else if (!validator.isEmail(sendMessageData.email)) {
+        errors.email = "Provide a valid email address!"
+    } else if (sendMessageData.email.length > 50) {
+        errors.email = "Provide a valid email address!"
+    }
+
+
+    if (isEmpty(sendMessageData.message)) {
+        errors.message = 'Message field cannot be empty!'
+    } else if (sendMessageData.message.length > 200) {
+        errors.message = 'Message cannot be longer than 200 characters!'
+    }
+
+    return {
+        isMessageDataValid: isEmpty(errors),
+        errors
+    }
+
+}
+
+
 const validateMemberData = (memberData) => {
+
     console.log("here is the result that if the object is heavy or not", isObjectHeavy(memberData[2]));
 
+    const memberErrors = [{}, {}, {}];
     if (isObjectHeavy(memberData[2])) {
-        // console.log(Object.values(memberData[2]), 'are the values in the member data');
-        const memberErrors = [{}, {}, {}];
+        console.log(Object.values(memberData[2]), 'is the state of heaviness');
         memberData.forEach((member, index) => {
             if (index <= 2) {
+
 
                 //Name of member
                 if (isEmpty(member.name)) {
@@ -49,8 +81,8 @@ const validateMemberData = (memberData) => {
                 //Phone no validation
                 if (isEmpty(member.phone)) {
                     memberErrors[index].phone = 'Provide phone number of member!';
-                } else if (member.phone.length > 14) {
-                    memberErrors[index].phone = 'Phone no. should be less than 14 characters long!'
+                } else if (member.phone.length > 14 || member.phone.length < 10) {
+                    memberErrors[index].phone = 'Phone no. should be 10 to 14 characters long!'
                 }
 
                 //Address validation
@@ -85,13 +117,15 @@ const validateMemberData = (memberData) => {
                 }
             }
         });
+
+        console.log("is member data valid:")
+
         return {
-            isMemberDataValid: Object.values(memberErrors[0]).length === 0 && Object.values(memberErrors[1]).length === 0,
+            isMemberDataValid: Object.keys(memberErrors[0]).length === 0 && Object.keys(memberErrors[1]).length === 0 && Object.keys(memberErrors[2]).length === 0,
             memberErrors
         }
 
     } else {
-        const memberErrors = [{}, {}, {}];
         memberData.forEach((member, index) => {
             if (index <= 1) {
 
@@ -112,8 +146,8 @@ const validateMemberData = (memberData) => {
                 //Phone no validation
                 if (isEmpty(member.phone)) {
                     memberErrors[index].phone = 'Provide phone number of member!';
-                } else if (member.phone.length > 14) {
-                    memberErrors[index].phone = 'Phone no. should be less than 14 characters long!'
+                } else if (member.phone.length > 14 || member.phone.length < 10) {
+                    memberErrors[index].phone = 'Phone no. should be 10 to 14 characters long!'
                 }
 
                 //Address validation
@@ -148,8 +182,8 @@ const validateMemberData = (memberData) => {
             }
         });
         return {
-            isMemberDataValid: Object.values(memberErrors[0]).length === 0 && Object.values(memberErrors[1]).length === 0,
-            memberErrors
+            isMemberDataValid: Object.keys(memberErrors[0]).length === 0 && Object.keys(memberErrors[1]).length === 0,
+            memberErrors: [memberErrors[0], memberErrors[1], {}]
         }
     }
 
@@ -207,4 +241,5 @@ module.exports = {
     isEmpty,
     validateMemberData,
     validateApplicationData,
+    validateSendMessageData
 }

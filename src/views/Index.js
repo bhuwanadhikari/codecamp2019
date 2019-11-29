@@ -24,6 +24,8 @@ import CompleteExamples from "./index-sections/CompleteExamples.js";
 import SignUp from "./index-sections/SignUp.js";
 import Examples from "./index-sections/Examples.js";
 import Download from "./index-sections/Download.js";
+import ContactUs from "./index-sections/ContactUs";
+import Venue from "./index-sections/VenueLocation.js";
 
 
 function Index() {
@@ -57,7 +59,12 @@ function Index() {
           <CompleteExamples />
           <SignUp />
           <Examples />
+          
+
           <Download /> */}
+          {/* <Venue /> */}
+          {/* <ContactUs /> */}
+          <Carousel/>
         </div>
         <DarkFooter />
       </div>

@@ -187,16 +187,36 @@ function Javascript() {
 
 			var { isValid, errors } = validateApplicationData(applicationData);
 			var { isMemberDataValid, memberErrors } = validateMemberData(membersData);
+
+			console.log('is appli data valid', isValid);
+			console.log('appli data errors', errors);
+
+			console.log('is member data valid', isMemberDataValid);
+			console.log('member data errors', memberDataError);
+
 			if (!isValid || !isMemberDataValid) {
 				console.log('is things working?')
 				if (!isValid) {
-					// console.log("erros are", errors);
+					console.log("erros are", errors);
 					setApplicationDataError({ ...applicationDataError, ...errors });
 				}
 				if (!isMemberDataValid) {
-					// console.log("member errors are", memberErrors);
-					setMemberDataError({ ...memberDataError, ...memberErrors });
+					console.log("member errors are", memberErrors);
+					const tempObjArr = [{}, {}, {}];
+					memberDataError.forEach((errObj, index) => {
+						tempObjArr[index] = { ...memberDataError, ...memberErrors[index] }
+					});
+					setMemberDataError(tempObjArr);
 				}
+
+				if (isMemberDataValid) {
+					setMemberDataError([{}, {}, {}]);
+				}
+
+				if (isValid) {
+					setApplicationDataError({});
+				}
+
 
 				return;
 
@@ -223,7 +243,7 @@ function Javascript() {
 
 		let dataToBePosted;
 
-		if (isEmpty(membersData[2].name) || isEmpty(membersData[2].photo) || isEmpty(membersData[2].email)) {
+		if (isEmpty(membersData[2].name) || isEmpty(membersData[2].photo) || isEmpty(membersData[2].email) || isEmpty(membersData[2].phone) || isEmpty(membersData[2].size)) {
 			dataToBePosted = { ...applicationData, participants: [membersData[0], membersData[1]] };
 		} else {
 			dataToBePosted = { ...applicationData, participants: membersData };
@@ -269,7 +289,7 @@ function Javascript() {
 
 			//
 
-			axios.post('https:codecamp2019.herokuapp.com/teams/', campData)
+			axios.post('https://codecamp2019.herokuapp.com/teams/', campData)
 				.then((res) => {
 					console.log("Successfully submitted here");
 					console.log("Data submitted is", res.data);
@@ -429,10 +449,10 @@ function Javascript() {
 
 
 								<ModalBody>
-									<p className="isCentered">We suggest you first to read the small Documentation below.</p>
-									<p className="leftAligned aboutText" style={{ maxHeight: '50vh', overflowY: 'scroll', margin: 'auto', maxWidth: '800px' }}>Nepal needs youth with inspiring ideas and technical knowledge to create innovative solutions in many contemporary fields. CodeCamp hopes to be a platform to bridge developers with the industry to develop such ideas in Rural Tourism, Public Health and e-Governance. Do you think you have what it takes to bring change?
-Submit Your Ideas
-</p>
+									<p className="isCentered aboutText" style={{ fontSize: '0.9em' }}>We suggest you first to read the <a href='https://drive.google.com/file/d/1hDigaxmRpgLuDje5uWX8moiY3ymqlP9B/view?usp=sharing' target="_blank">CodeCamp 2019 Booklet</a> before you continue to fill the form.</p>
+									<p className="leftAligned aboutText" style={{ maxHeight: '50vh', margin: 'auto', maxWidth: '800px' }}>Nepal needs youth with inspiring ideas and technical knowledge to create innovative solutions in many contemporary fields. CodeCamp hopes to be a platform to bridge developers with the industry to develop such ideas in Rural Tourism, Public Health and e-Governance. Do you think you have what it takes to bring change?
+										Submit Your Ideas
+									</p>
 									<Row>
 										<FormGroup check>
 											<Label check>
@@ -444,7 +464,7 @@ Submit Your Ideas
 													}
 												}} type="checkbox"></Input>
 												<span className="form-check-sign"></span>
-												I accept the <a href='codecamp2019.co/terms-and-conditions'>terms and conditions</a> of the CodeCamp 2019.
+												I accept the <a href='https://drive.google.com/file/d/1BDRXvJz3MKtJHjA9JwJeuR6R972ucf5j/view' target="_blank">terms and conditions</a> of the CodeCamp 2019.
                                         </Label>
 
 											{!agreement ? <Error >{agreementError}</Error> : null}
@@ -635,7 +655,7 @@ Submit Your Ideas
 										) : null}
 									{submitLabel === 'Done' ?
 										(
-											<p className=" blackText pureCenter">Your application has been submitted and we will contact you after shortlisting. Thankyou!!</p>
+											<p className=" blackText pureCenter">Your application has been submitted and we will contact you soon after shortlisting. Thankyou!!</p>
 										) : null}
 									{submitFailed === true && submitLabel !== 'Submitting' && submitLabel !== 'Done' ?
 										(

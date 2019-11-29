@@ -243,14 +243,14 @@ function Javascript() {
 
 		let dataToBePosted;
 
-		if (isEmpty(membersData[2].name) || isEmpty(membersData[2].photo) || isEmpty(membersData[2].email) || isEmpty(membersData[2].phone) || isEmpty(membersData[2].size)) {
+		if (isEmpty(membersData[2].name) || isEmpty(membersData[2].email) || isEmpty(membersData[2].phone)) {
 			dataToBePosted = { ...applicationData, participants: [membersData[0], membersData[1]] };
 		} else {
 			dataToBePosted = { ...applicationData, participants: membersData };
 
 		}
-
-		console.log("Data to be posted are here", JSON.stringify(dataToBePosted));
+		console.log("Member data now is", membersData)
+		console.log("Data to be posted are here", dataToBePosted);
 
 		if (submitLabel === 'Done') {
 			setFormProgress(0);
@@ -598,7 +598,7 @@ function Javascript() {
 										</Col>
 										{memberDetailForm}
 										<Col lg="9" sm="11">
-											<p className='aboutText' style={{ fontSize: '0.9em', marginBottom: '5px' }}>{`Upload pdf of your proposal`}</p>
+											<p className='aboutText' style={{ fontSize: '0.9em', marginBottom: '5px' }}>{`Upload pdf of your proposal*`}</p>
 											<input
 												className="form-control-primary appliForm"
 												style={{ fontSize: '0.9em', margin: '15px', marginTop: 0 }}

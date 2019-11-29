@@ -36,23 +36,23 @@ function BasicElements() {
     name: "name of image"
   })
 
-  const _changeFile = (e) => {
-    setDummyData({ ...dummyData, image: e.target.files[0], name: e.target.files[0].name });
-  }
+  // const _changeFile = (e) => {
+  //   setDummyData({ ...dummyData, image: e.target.files[0], name: e.target.files[0].name });
+  // }
 
-  const _upFile = () => {
-    let formed = new FormData();
-    formed.append('image', dummyData.image);
-    formed.append('name', dummyData.name);
+  // const _upFile = () => {
+  //   let formed = new FormData();
+  //   formed.append('image', dummyData.image);
+  //   formed.append('name', dummyData.name);
 
-    console.log('file to be uploaded', formed)
-    axios.post('http://192.168.100.20:8000/hell/', formed, { 'content-type': 'multipart/form-data' })
-      .then((res) => {
-        console.log("Done successufllywit file response", res.data)
-      }).catch((err) => {
-        console.log("Something went wroing so do again", err);
-      });
-  }
+  //   console.log('file to be uploaded', formed)
+  //   axios.post('http://192.168.100.20:8000/hell/', formed, { 'content-type': 'multipart/form-data' })
+  //     .then((res) => {
+  //       console.log("Done successufllywit file response", res.data)
+  //     }).catch((err) => {
+  //       console.log("Something went wroing so do again", err);
+  //     });
+  // }
 
   React.useEffect(() => {
     {/* if (

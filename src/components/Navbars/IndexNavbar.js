@@ -162,6 +162,7 @@ function IndexNavbar() {
 							</NavItem>
 
 
+
 							<NavItem>
 								<NavLink
 									href="#faqs"
@@ -179,8 +180,11 @@ function IndexNavbar() {
 
 						</Nav>
 					</Collapse>
+
 				</Container>
+				
 			</Navbar>
+			
 		</>
 	);
 }

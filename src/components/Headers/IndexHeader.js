@@ -2,8 +2,12 @@
 import React from "react";
 
 // reactstrap components
-import { Container } from "reactstrap";
+import {
+  Container, NavItem,
+} from "reactstrap";
 import CountDown from "./CountDown";
+import IdeaModal from "../../views/index-sections/IdeaModal";
+
 
 // core components
 function IndexHeader() {
@@ -47,8 +51,11 @@ function IndexHeader() {
               src={require("assets/img/whitelogo.png")}
             ></img>
             <h3 style={{ marginTop: '15px' }}>Poush 9 - Poush 11</h3>
+            <h6 style={{ marginTop: '15px' }}>Submit your idea and be ready for the challenge!!</h6>
           </div>
+
         </Container>
+
       </div>
     </>
   );

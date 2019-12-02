@@ -19,7 +19,7 @@ import {
 import Javascript from "../../views/index-sections/Javascript";
 import IdeaModal from "../../views/index-sections/IdeaModal";
 
-function IndexNavbar() {
+function IndexNavbar(props) {
 	const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
 	const [collapseOpen, setCollapseOpen] = React.useState(false);
 	React.useEffect(() => {
@@ -157,7 +157,7 @@ function IndexNavbar() {
 							<NavItem>
 
 
-								<IdeaModal />
+								<IdeaModal _bringForm={props._bringForm} trigger={props.trigger} />
 
 							</NavItem>
 
@@ -182,9 +182,9 @@ function IndexNavbar() {
 					</Collapse>
 
 				</Container>
-				
+
 			</Navbar>
-			
+
 		</>
 	);
 }

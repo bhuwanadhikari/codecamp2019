@@ -39,7 +39,16 @@ import { validateMemberData } from "../../validation/validate";
 // core components
 axios.defaults.withCredentials = true;
 
-function Javascript() {
+function Javascript(props) {
+
+	console.log(window.location.href, 'is the pathname hai ta guys');
+	const wholePath = window.location.href;
+
+	const splitArray = wholePath.split('/');
+	const requiredValue = splitArray[splitArray.length - 1];
+	console.log('required value is', requiredValue);
+
+
 
 
 	const [formProgress, setFormProgress] = React.useState(0);
@@ -95,9 +104,25 @@ function Javascript() {
 	let [agreement, setAgreement] = React.useState(false);
 	let [agreementError, setAgreementError] = React.useState('');
 
-	React.useEffect(() => {
 
+	const { trigger } = props;
+
+
+	React.useEffect(() => {
+		if (requiredValue === '#register') {
+			console.log('Did we hit the target')
+			setFormProgress(1);
+		}
 	}, []);
+
+	React.useEffect(() => {
+		console.log("Form progress is", formProgress);
+	}, [formProgress]);
+
+
+	React.useEffect(() => {
+		setFormProgress(trigger ? 1 : 0)
+	}, [trigger]);
 
 	const toBase64 = file => new Promise((resolve, reject) => {
 		const reader = new FileReader();
@@ -227,6 +252,7 @@ function Javascript() {
 
 	const _cancel = () => {
 		setFormProgress(0);
+		props._bringForm(false);
 	}
 
 	const _previous = () => {
@@ -254,6 +280,7 @@ function Javascript() {
 
 		if (submitLabel === 'Done') {
 			setFormProgress(0);
+			props._bringForm(false);
 			setSubmitLabel('Submit');
 			return;
 		}
@@ -435,7 +462,11 @@ function Javascript() {
 
 						{/* intro modal*/}
 						{formProgress === 1 ?
-							(<Modal isOpen={formProgress === 1} toggle={() => setFormProgress(0)} style={{ margin: '20px auto', border: '20px solid transparent', maxWidth: '800px' }}>
+							(<Modal isOpen={formProgress === 1} toggle={() => {
+								setFormProgress(0);
+								props._bringForm(false);
+							}
+							} style={{ margin: '20px auto', border: '20px solid transparent', maxWidth: '800px' }}>
 								<div className="modal-header justify-content-center">
 									<button
 										className="close"
@@ -496,7 +527,10 @@ function Javascript() {
 						{/* choice modal*/}
 
 						{formProgress === 2 ?
-							(<Modal isOpen={formProgress === 2} toggle={() => setFormProgress(0)} style={{ margin: '20px auto', border: '20px solid transparent', maxWidth: '800px' }}>
+							(<Modal isOpen={formProgress === 2} toggle={() => {
+								setFormProgress(0);
+								props._bringForm(false);
+							}} style={{ margin: '20px auto', border: '20px solid transparent', maxWidth: '800px' }}>
 								<div className="modal-header justify-content-center">
 									<button
 										className="close"
@@ -538,7 +572,10 @@ function Javascript() {
 
 						{/* Main form modal*/}
 						{formProgress === 3 ?
-							(<Modal isOpen={formProgress === 3} toggle={() => setFormProgress(0)} style={{ margin: '20px auto', border: '20px solid transparent', maxWidth: '800px' }}>
+							(<Modal isOpen={formProgress === 3} toggle={() => {
+								setFormProgress(0);
+								props._bringForm(false);
+							}} style={{ margin: '20px auto', border: '20px solid transparent', maxWidth: '800px' }}>
 								<div className="modal-header justify-content-center">
 									<button
 										className="close"
@@ -632,7 +669,11 @@ function Javascript() {
 
 						{/* Final modal*/}
 						{formProgress === 4 ?
-							(<Modal isOpen={formProgress === 4} toggle={() => setFormProgress(0)} style={{ margin: '20px auto', border: '20px solid transparent', maxWidth: '800px' }}>
+							(<Modal isOpen={formProgress === 4} toggle={() => {
+								setFormProgress(0)
+								props._bringForm(false);
+							}
+							} style={{ margin: '20px auto', border: '20px solid transparent', maxWidth: '800px' }}>
 								<div className="modal-header justify-content-center">
 									<button
 										className="close"

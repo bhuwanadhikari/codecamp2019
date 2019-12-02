@@ -7,10 +7,11 @@ import {
 } from "reactstrap";
 import CountDown from "./CountDown";
 import IdeaModal from "../../views/index-sections/IdeaModal";
+import HomeButton from "views/HomeButton";
 
 
 // core components
-function IndexHeader() {
+function IndexHeader(props) {
   let pageHeader = React.createRef();
 
   const [timeLeft, setTimeLeft] = React.useState({
@@ -51,7 +52,8 @@ function IndexHeader() {
               src={require("assets/img/whitelogo.png")}
             ></img>
             <h3 style={{ marginTop: '15px' }}>Poush 9 - Poush 11</h3>
-            <h6 style={{ marginTop: '15px' }}>Submit your idea and be ready for the challenge!!</h6>
+            {/* <h6 style={{ marginTop: '15px' }}>Submit your idea and be ready for the challenge!!</h6> */}
+            <HomeButton _bringForm={props._bringForm} />
           </div>
 
         </Container>

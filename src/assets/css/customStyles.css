@@ -85,3 +85,12 @@
     font-size: 0.8em;
     padding-top: 10px;
 }
+
+.noStyle {
+    color: white;
+}
+
+.noStyle:hover {
+    color: white;
+    text-decoration: none;
+}

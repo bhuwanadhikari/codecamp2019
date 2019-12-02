@@ -26,9 +26,31 @@ import Examples from "./index-sections/Examples.js";
 import Download from "./index-sections/Download.js";
 import ContactUs from "./index-sections/ContactUs";
 import Venue from "./index-sections/VenueLocation.js";
+import { setStyle } from "rc-menu/lib/util";
 
 
 function Index() {
+
+  const wholePath = window.location.href;
+
+  const splitArray = wholePath.split('/');
+  const requiredValue = splitArray[splitArray.length - 1];
+
+
+
+  const [trigger, setTrigger] = React.useState(false);
+
+  const _bringForm = (value) => {
+    setTrigger(value);
+  }
+
+  React.useEffect(() => {
+    if (requiredValue === '#register') {
+      setTrigger(true);
+    }
+  }, [requiredValue])
+
+
   React.useEffect(() => {
     document.body.classList.add("index-page");
     document.body.classList.add("sidebar-collapse");
@@ -42,9 +64,9 @@ function Index() {
   });
   return (
     <>
-      <IndexNavbar />
+      <IndexNavbar _bringForm={_bringForm} trigger={trigger} />
       <div className="wrapper">
-        <IndexHeader />
+        <IndexHeader _bringForm={_bringForm} />
         <div className="main">
           {/* <Images /> */}
           <BasicElements />
@@ -64,7 +86,7 @@ function Index() {
           <Download /> */}
           {/* <Venue /> */}
           {/* <ContactUs /> */}
-          <Carousel/>
+          <Carousel />
         </div>
         <DarkFooter />
       </div>

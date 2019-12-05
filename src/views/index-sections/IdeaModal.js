@@ -480,7 +480,7 @@ function Javascript(props) {
 
 
 								<ModalBody>
-									<p className="isCentered aboutText" style={{ fontSize: '0.9em' }}>We suggest you first to read the <a href='https://drive.google.com/file/d/1hDigaxmRpgLuDje5uWX8moiY3ymqlP9B/view?usp=sharing' target="_blank">CodeCamp 2019 Booklet</a> before you continue to fill the form.</p>
+									<p className="isCentered aboutText" style={{ fontSize: '0.9em' }}>We suggest you first to read the <a href='https://drive.google.com/file/d/1hDigaxmRpgLuDje5uWX8moiY3ymqlP9B/view' target="_blank">CodeCamp 2019 Booklet</a> before you continue to fill the form.</p>
 									<p className="leftAligned aboutText" style={{ maxHeight: '50vh', margin: 'auto', maxWidth: '800px' }}>Nepal needs youth with inspiring ideas and technical knowledge to create innovative solutions in many contemporary fields. CodeCamp hopes to be a platform to bridge developers with the industry to develop such ideas in Rural Tourism, Public Health and e-Governance. Do you think you have what it takes to bring change?
 										Submit Your Ideas
 									</p>
@@ -635,7 +635,7 @@ function Javascript(props) {
 										</Col>
 										{memberDetailForm}
 										<Col lg="9" sm="11">
-											<p className='aboutText' style={{ fontSize: '0.9em', marginBottom: '5px' }}>{`Upload pdf of your proposal*`}</p>
+											<p className='aboutText' style={{ fontSize: '0.9em', marginBottom: '5px' }}>Upload pdf of your proposal.* See <a href="https://drive.google.com/file/d/1dwFlGwLBALZ8ZprGYGdRQ04uMZZYoyS1/view?usp=sharing" target="_blank">Proposal Format!</a></p>
 											<input
 												className="form-control-primary appliForm"
 												style={{ fontSize: '0.9em', margin: '15px', marginTop: 0 }}

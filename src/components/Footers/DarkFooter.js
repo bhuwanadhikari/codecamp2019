@@ -36,8 +36,8 @@ function DarkFooter() {
 
 
 		(async () => {
-			// await axios.get('https://codecamp2019.herokuapp.com/count/')
-			await axios.get('http://192.168.100.9:8000/count/')
+			await axios.get('https://codecamp2019.herokuapp.com/count/')
+				// await axios.get('http://192.168.100.9:8000/count/')
 				.then((res) => {
 					setPageCount(res.data);
 					console.log("successfully received the page count", res.data);
@@ -47,8 +47,8 @@ function DarkFooter() {
 
 
 			await setTimeout(async () => {
-				// await axios.post('https://codecamp2019.herokuapp.com/count/', data)
-				await axios.post('http://192.168.100.9:8000/count/', data)
+				await axios.post('https://codecamp2019.herokuapp.com/count/', data)
+					// await axios.post('http://192.168.100.9:8000/count/', data)
 					.then((res) => {
 						setPageCount(res.data);
 						console.log("successfully page count increased", res.data);

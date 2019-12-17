@@ -483,7 +483,7 @@ function Javascript(props) {
 																					console.log("Data to be posted are", { ...applicationData, pdfUrl: tempPdfUrl, participants: [membersData[0], membersData[1], membersData[2]] })
 
 																					// axios.post('https://codecamp2019.herokuapp.com/teams/', campData)
-																					axios.post('http://192.168.100.9:8000/teams/', { ...applicationData, pdfUrl: tempPdfUrl, participants: [membersData[0], membersData[1], membersData[2]] })
+																					axios.post('https://codecamp2019.herokuapp.com/teams/', { ...applicationData, pdfUrl: tempPdfUrl, participants: [membersData[0], membersData[1], membersData[2]] })
 																						.then((res) => {
 																							console.log("Successfully submitted here");
 																							console.log("Data submitted is", res.data);
@@ -557,7 +557,7 @@ function Javascript(props) {
 																	console.log("Data to be posted are", { ...applicationData, pdfUrl: tempPdfUrl, participants: [membersData[0], membersData[1]] })
 
 																	// axios.post('https://codecamp2019.herokuapp.com/teams/', campData)
-																	axios.post('http://192.168.100.9:8000/teams/', { ...applicationData, pdfUrl: tempPdfUrl, participants: [membersData[0], membersData[1]] })
+																	axios.post('https://codecamp2019.herokuapp.com/teams/', { ...applicationData, pdfUrl: tempPdfUrl, participants: [membersData[0], membersData[1]] })
 																		.then((res) => {
 																			console.log("Successfully submitted here");
 																			console.log("Data submitted is", res.data);

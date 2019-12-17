@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { storage } from '../../firebase';
+
 // react plugins that creates an input with a date picker
 import Datetime from "react-datetime";
 import axios from "axios";
@@ -6,6 +8,7 @@ import axios from "axios";
 import theme1 from '../../assets/img/theme1.png';
 import theme2 from '../../assets/img/theme2.png';
 import theme3 from '../../assets/img/theme3.png';
+import funnySpinner from '../../assets/img/funnyspinner.gif';
 import { isEmpty } from "../../validation/validate";
 
 
@@ -41,12 +44,10 @@ axios.defaults.withCredentials = true;
 
 function Javascript(props) {
 
-	console.log(window.location.href, 'is the pathname hai ta guys');
 	const wholePath = window.location.href;
 
 	const splitArray = wholePath.split('/');
 	const requiredValue = splitArray[splitArray.length - 1];
-	console.log('required value is', requiredValue);
 
 
 
@@ -61,6 +62,7 @@ function Javascript(props) {
 		teamName: '',
 		theme: '',
 		pdf: '',
+		pdfUrl: '',
 		github: '',
 		pdfLink: ''
 	});
@@ -68,6 +70,7 @@ function Javascript(props) {
 	let memberArr = [{
 		photo: '',
 		photoLink: '',
+		photoUrl: '',
 		name: '',
 		phone: '',
 		size: '',
@@ -76,6 +79,7 @@ function Javascript(props) {
 		email: ''
 	}, {
 		photo: '',
+		photoUrl: '',
 		photoLink: '',
 		name: '',
 		phone: '',
@@ -85,6 +89,7 @@ function Javascript(props) {
 		email: ''
 	}, {
 		photo: '',
+		photoUrl: '',
 		photoLink: '',
 		name: '',
 		phone: '',
@@ -99,10 +104,10 @@ function Javascript(props) {
 
 	let [membersData, setMembersData] = React.useState(memberArr);
 	const [time, setTime] = React.useState(new Date().getTime());
-	console.log(time, 'is time now');
 
 	let [agreement, setAgreement] = React.useState(false);
 	let [agreementError, setAgreementError] = React.useState('');
+	const [uploadCount, setUploadCount] = React.useState(0);
 
 
 	const { trigger } = props;
@@ -123,6 +128,15 @@ function Javascript(props) {
 	React.useEffect(() => {
 		setFormProgress(trigger ? 1 : 0)
 	}, [trigger]);
+
+
+	React.useEffect(() => {
+		if (!membersData[2].photo) {
+
+		} else if (membersData[2].photo) {
+
+		}
+	}, [uploadCount]);
 
 	const toBase64 = file => new Promise((resolve, reject) => {
 		const reader = new FileReader();
@@ -265,73 +279,320 @@ function Javascript(props) {
 		setApplicationDataError({ ...applicationDataError, theme: '' })
 	}
 
-	const _submit = () => {
+	const _submit = async () => {
 
-		let dataToBePosted;
-
-		if (isEmpty(membersData[2].name) || isEmpty(membersData[2].email) || isEmpty(membersData[2].phone)) {
-			dataToBePosted = { ...applicationData, participants: [membersData[0], membersData[1]] };
-		} else {
-			dataToBePosted = { ...applicationData, participants: membersData };
-
-		}
-		console.log("Member data now is", membersData)
-		console.log("Data to be posted are here", dataToBePosted);
 
 		if (submitLabel === 'Done') {
-			setFormProgress(0);
+			await setFormProgress(0);
 			props._bringForm(false);
-			setSubmitLabel('Submit');
+			await setSubmitLabel('Submit');
 			return;
 		}
 
 
 		if (submitLabel === 'Submit' || submitLabel === 'Re-Submit') {
-			setSubmitLabel('Submitting');
-
-			const campData = new FormData();
+			await setSubmitLabel('Submitting');
 
 
 
-			const members = dataToBePosted.participants;
 
 
-			const fieldArray = ['name', 'size', 'phone', 'address', 'college', 'email', 'photo'];
 
-			members.forEach((member, memberIndex) => {
-				fieldArray.forEach((field, fieldIndex) => {
-					campData.append(`${field}${memberIndex}`, member[field]);
-				})
-			})
 
-			campData.append('ideaName', dataToBePosted.ideaName);
-			campData.append('teamName', dataToBePosted.teamName);
-			campData.append('theme', dataToBePosted.theme);
-			campData.append('pdf', dataToBePosted.pdf);
-			campData.append('github', dataToBePosted.github);
 
-			for (let value of campData.values()) {
-				console.log(value, ' in the damp data');
+
+
+
+
+
+
+			try {
+
+
+
+
+				let photoUploadStatus = false;
+				const d1 = new Date().toISOString();
+				const uploadTask = storage.ref(`pdfs/${applicationData.pdf.name + d1}`).put(applicationData.pdf);
+
+				uploadTask.on(
+					"state_changed",
+					snapshot => {
+						// progress function ...
+					},
+					error => {
+						photoUploadStatus = photoUploadStatus && false;
+						// Error function ...
+						console.log('error in uploaidn pdf to the firebase', error);
+					},
+					async () => {
+						// complete function ...
+						await storage
+							.ref("pdfs")
+							.child(applicationData.pdf.name + d1)
+							.getDownloadURL()
+							.then(async url => {
+
+								console.log('pdf is file now', applicationData.pdf);
+								const tempPdfUrl = url;
+								await setApplicationData({ ...applicationData, pdf: url });
+								console.log('pdf is link now', applicationData.pdfUrl);
+
+								console.log("this is url of pdf", url);
+								//----------------------------------------------------------------------------------------------------------------------
+
+								let tempPhoto = membersData[0].photo;
+
+								var d2 = new Date().toISOString();
+								const uploadPhotoTask1 = storage.ref(`photos/${tempPhoto.name + d2}`).put(tempPhoto);
+								uploadPhotoTask1.on(
+									"state_changed",
+									snapshot => {
+										// progress function ...
+									},
+									error => {
+										photoUploadStatus = photoUploadStatus && false;
+
+										// Error function ...
+										console.log('error in uploaidn pdf to the firebase', error);
+									},
+									async () => {
+										// complete function ...
+
+										//upload first user photo
+										await storage
+											.ref("photos")
+											.child(membersData[0].photo.name + d2)
+											.getDownloadURL()
+											.then(async url => {
+												photoUploadStatus = photoUploadStatus && true;
+												const tempArray = membersData;
+												tempArray[0].photo = url;
+												await setMembersData(tempArray);
+
+
+
+												console.log("this is url of user photo", url);
+
+
+												//----------------------------------------------------------------------------------------------------------------------
+
+												let tempPhoto = membersData[1].photo;
+
+												var d2 = new Date().toISOString();
+												const uploadPhotoTask1 = storage.ref(`photos/${tempPhoto.name + d2}`).put(tempPhoto);
+												uploadPhotoTask1.on(
+													"state_changed",
+													snapshot => {
+														// progress function ...
+													},
+													error => {
+														photoUploadStatus = photoUploadStatus && false;
+
+														// Error function ...
+														console.log('error in uploaidn pdf to the firebase', error);
+													},
+													async () => {
+														// complete function ...
+
+														await storage
+															.ref("photos")
+															.child(membersData[1].photo.name + d2)
+															.getDownloadURL()
+															.then(async url => {
+																photoUploadStatus = photoUploadStatus && true;
+																const tempArray = membersData;
+																tempArray[1].photo = url;
+																await setMembersData(tempArray);
+
+																console.log("this is url of user photo", url);
+																//1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+
+
+
+
+																if (membersData[2].photo) {
+																	let tempPhoto = membersData[2].photo;
+
+																	var d2 = new Date().toISOString();
+																	const uploadPhotoTask1 = storage.ref(`photos/${tempPhoto.name + d2}`).put(tempPhoto);
+																	uploadPhotoTask1.on(
+																		"state_changed",
+																		snapshot => {
+																			// progress function ...
+																		},
+																		error => {
+																			photoUploadStatus = photoUploadStatus && false;
+
+																			// Error function ...
+																			console.log('error in uploaidn pdf to the firebase', error);
+																		},
+																		async () => {
+																			// complete function ...
+
+																			await storage
+																				.ref("photos")
+																				.child(membersData[2].photo.name + d2)
+																				.getDownloadURL()
+																				.then(async url => {
+																					photoUploadStatus = photoUploadStatus && true;
+																					const tempArray = membersData;
+																					tempArray[2].photo = url;
+																					await setMembersData(tempArray);
+																					// console.log("Applicaton Data is", dataToBePosted)
+																					//2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222
+																					// let dataToBePosted;
+
+																					// if (isEmpty(membersData[2].name) || isEmpty(membersData[2].email) || isEmpty(membersData[2].phone)) {
+																					// 	dataToBePosted = { ...applicationData, participants: [membersData[0], membersData[1]] };
+																					// } else {
+																					// 	dataToBePosted = { ...applicationData, participants: membersData };
+
+																					// }
+
+
+
+																					// console.log("Applicaton Data is", dataToBePosted)
+
+																					// const campData = new FormData();
+
+
+
+																					// const members = dataToBePosted.participants;
+
+
+																					// const fieldArray = ['name', 'size', 'phone', 'address', 'college', 'email', 'photo'];
+
+																					// members.forEach((member, memberIndex) => {
+																					// 	fieldArray.forEach((field, fieldIndex) => {
+																					// 		campData.append(`${field}${memberIndex}`, member[field]);
+																					// 	})
+																					// })
+
+																					// campData.append('ideaName', dataToBePosted.ideaName);
+																					// campData.append('teamName', dataToBePosted.teamName);
+																					// campData.append('theme', dataToBePosted.theme);
+																					// campData.append('pdf', dataToBePosted.pdfUrl);
+																					// campData.append('github', dataToBePosted.github);
+
+																					// for (let value of campData.values()) {
+																					// 	console.log(value, ' in the damp data');
+																					// }
+
+																					//
+																					console.log("Data to be posted are", { ...applicationData, pdfUrl: tempPdfUrl, participants: [membersData[0], membersData[1], membersData[2]] })
+
+																					// axios.post('https://codecamp2019.herokuapp.com/teams/', campData)
+																					axios.post('http://192.168.100.9:8000/teams/', { ...applicationData, pdfUrl: tempPdfUrl, participants: [membersData[0], membersData[1], membersData[2]] })
+																						.then((res) => {
+																							console.log("Successfully submitted here");
+																							console.log("Data submitted is", res.data);
+																							setSubmitLabel('Done')
+																							setSubmitFailed(false);
+
+																						}).catch((err) => {
+																							console.log("Error has been occured", err);
+																							setSubmitLabel('Re-Submit');
+																							setSubmitFailed(true);
+																						});
+
+
+
+
+
+
+
+
+
+
+
+
+
+																				});
+																		}
+																	)
+																} else {
+
+
+																	//11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+																	let dataToBePosted;
+
+																	// if (isEmpty(membersData[2].name) || isEmpty(membersData[2].email) || isEmpty(membersData[2].phone)) {
+																	// 	dataToBePosted = { ...applicationData, participants: [membersData[0], membersData[1]] };
+																	// } else {
+																	// 	dataToBePosted = { ...applicationData, participants: membersData };
+
+																	// }
+
+																	// const campData = new FormData();
+
+
+
+																	// const members = dataToBePosted.participants;
+
+
+																	// const fieldArray = ['name', 'size', 'phone', 'address', 'college', 'email', 'photo'];
+
+																	// members.forEach((member, memberIndex) => {
+																	// 	fieldArray.forEach((field, fieldIndex) => {
+																	// 		campData.append(`${field}${memberIndex}`, member[field]);
+																	// 	})
+																	// })
+
+
+
+																	// console.log("Applicaton Data is", dataToBePosted)
+
+																	// campData.append('ideaName', dataToBePosted.ideaName);
+																	// campData.append('teamName', dataToBePosted.teamName);
+																	// campData.append('theme', dataToBePosted.theme);
+																	// campData.append('pdf', dataToBePosted.pdfUrl);
+																	// campData.append('github', dataToBePosted.github);
+
+																	// for (let value of campData.values()) {
+																	// 	console.log(value, ' in the damp data');
+																	// }
+
+																	// //
+																	console.log("Data to be posted are", { ...applicationData, pdfUrl: tempPdfUrl, participants: [membersData[0], membersData[1]] })
+
+																	// axios.post('https://codecamp2019.herokuapp.com/teams/', campData)
+																	axios.post('http://192.168.100.9:8000/teams/', { ...applicationData, pdfUrl: tempPdfUrl, participants: [membersData[0], membersData[1]] })
+																		.then((res) => {
+																			console.log("Successfully submitted here");
+																			console.log("Data submitted is", res.data);
+																			setSubmitLabel('Done')
+																			setSubmitFailed(false);
+
+																		}).catch((err) => {
+																			console.log("Error has been occured", err);
+																			setSubmitLabel('Re-Submit');
+																			setSubmitFailed(true);
+																		});
+																}
+
+															});
+													}
+												)
+											});
+									}
+								)
+							});
+					}
+				);
+
+
+			} catch (err) {
+				console.log("Error has been occured in api things", err);
+				setSubmitLabel('Re-Submit');
+				setSubmitFailed(true);
 			}
 
-			//
-
-			axios.post('https://codecamp2019.herokuapp.com/teams/', campData)
-				.then((res) => {
-					console.log("Successfully submitted here");
-					console.log("Data submitted is", res.data);
-					setSubmitLabel('Done')
-					setSubmitFailed(false);
-
-				}).catch((err) => {
-					console.log("Error has been occured", err);
-					setSubmitLabel('Re-Submit');
-					setSubmitFailed(true);
-				});
 		}
 	}
 
 
+	console.log("Updated data are", { ...applicationData, participants: [membersData[0], membersData[1], membersData[2]] })
 
 
 	const memberDetailForm = membersData.map((member, index) => {
@@ -420,6 +681,9 @@ function Javascript(props) {
 			</React.Fragment>
 		)
 	})
+
+
+	// console.log("application data is", applicationData);
 
 	const themesUI = [{ name: 'Rural Tourism', src: theme1 }, { name: 'e-Governance', src: theme2 }, { name: 'Public Health', src: theme3 }].map((theme, index) => {
 		return (
@@ -700,11 +964,16 @@ function Javascript(props) {
 										) : null}
 									{submitFailed === true && submitLabel !== 'Submitting' && submitLabel !== 'Done' ?
 										(
-											<p className=" blackText pureCenter">Something went wrong, Please try again later! For more, mail us at contact@codecamp2019.co</p>
+											<p className=" blackText pureCenter">Something went wrong, Please try again later or Reload the page and Refill the form! For more, mail us at contact@codecamp2019.co</p>
 										) : null}
 									{submitLabel === 'Submitting' ?
-										(
+										(<div>
 											<p className=" blackText pureCenter">Processing your form. Be Patient!!</p>
+											<h6 style={{ margin: '10px auto', alignItems: 'center', justifyContent: 'center', justifyItems: 'center' }}>
+												<img style={{ height: '100px', alignSelf: 'center', marginLeft: 'calc(50% - 50px)' }} src={funnySpinner} />
+											</h6>
+
+										</div>
 										) : null}
 
 

@@ -51,7 +51,7 @@ function IndexHeader(props) {
 
               src={require("assets/img/whitelogo.png")}
             ></img>
-            <h3 style={{ marginTop: '15px' }}>Poush 9 - Poush 11</h3>
+            <h3 style={{ marginTop: '15px' }}>Magh 9 - Magh 11</h3>
             {/* <h6 style={{ marginTop: '15px' }}>Submit your idea and be ready for the challenge!!</h6> */}
             <HomeButton _bringForm={props._bringForm} />
           </div>

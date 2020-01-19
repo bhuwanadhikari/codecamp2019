@@ -18,7 +18,7 @@ import { relative } from "path";
 
 const photos = [
     'https://firebasestorage.googleapis.com/v0/b/bhuwan-forum.appspot.com/o/codecamp-photos%2F1.png?alt=media&token=7cfd6df9-c43d-4fde-a317-82d87aa2fc42',
-    'https://firebasestorage.googleapis.com/v0/b/bhuwan-forum.appspot.com/o/codecamp-photos%2F2.png?alt=media&token=42fb84aa-e6d9-4cc8-bbbb-a4fde9d49bd2',
+    'https://firebasestorage.googleapis.com/v0/b/bhuwan-forum.appspot.com/o/codecamp-photos%2F2.png?alt=media&token=666b7bf4-195e-4db4-9a19-0faaedeac94d',
     'https://firebasestorage.googleapis.com/v0/b/bhuwan-forum.appspot.com/o/codecamp-photos%2F3.png?alt=media&token=7db93d96-beb3-4fe9-9f4a-c3320d5bc32c',
 
 ]

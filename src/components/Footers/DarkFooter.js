@@ -122,7 +122,7 @@ function DarkFooter() {
 				<Row>
 					<Col md={6}>
 						<div className="container-venue">
-							<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4970.147009041778!2d83.9729951254231!3d28.255137701438922!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399595006d6a3d97%3A0x19ff5adc4b5b8efe!2sRIC%20building%2C%20WRC!5e0!3m2!1sen!2snp!4v1574920018635!5m2!1sen!2snp" width="100%" height="430" frameborder="0" style={{ border: 0, margin: '40px 0 0', padding: '10px' }} allowfullscreen=""></iframe>
+							<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d878.6104111196879!2d83.97573712917371!3d28.254622280226236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3995947dd802d223%3A0xcc6f32e6a0be8042!2sCIT%20Center%20and%20Electronics%20%26%20Computer%20Department!5e0!3m2!1sen!2snp!4v1579428696846!5m2!1sen!2snp" width="100%" height="430" frameborder="0" style={{ border: 0, margin: '40px 0 0', padding: '10px' }} allowfullscreen=""></iframe>
 						</div>
 					</Col>
 					<Col md={6}>

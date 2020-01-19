@@ -45,7 +45,7 @@ function Index() {
   }
 
   React.useEffect(() => {
-    if (requiredValue === '#register') {
+    if (requiredValue === '#selected-list') {
       setTrigger(true);
     }
   }, [requiredValue])

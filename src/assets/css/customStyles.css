@@ -60,6 +60,9 @@
 .appliForm:focus {
     border-color: #2ca8ff;
 }
+.modal-content {
+    height: 800px
+}
 
 @media only screen and (max-width: 500px) {
     .choiceName {

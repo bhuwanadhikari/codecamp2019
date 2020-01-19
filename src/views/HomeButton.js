@@ -3,7 +3,7 @@ import './HomeButton.css';
 
 function HomeButton(props) {
     return (
-        <a href='#register' onClick={() => props._bringForm(true)}>
+        <a href='#selected-list' onClick={() => props._bringForm(true)}>
             <div className="buttonBox" >
                 <div className="animated-button1">
                     <span></span>

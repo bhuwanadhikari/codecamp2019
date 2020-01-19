@@ -114,7 +114,7 @@ function Javascript(props) {
 
 
 	React.useEffect(() => {
-		if (requiredValue === '#register') {
+		if (requiredValue === '#selected-list') {
 			console.log('Did we hit the target')
 			setFormProgress(1);
 		}
@@ -715,7 +715,7 @@ function Javascript(props) {
 					onClick={() => setFormProgress(1)}
 				>
 					<i className="now-ui-icons files_single-copy-04 mr-1"></i>
-					<p>Submit Idea</p>
+					<p>Teams</p>
 				</Button>
 
 				<Row>
@@ -726,11 +726,13 @@ function Javascript(props) {
 
 						{/* intro modal*/}
 						{formProgress === 1 ?
-							(<Modal isOpen={formProgress === 1} toggle={() => {
-								setFormProgress(0);
-								props._bringForm(false);
-							}
-							} style={{ margin: '20px auto', border: '20px solid transparent', maxWidth: '800px' }}>
+							(<Modal
+								isOpen={formProgress === 1}
+								toggle={() => {
+									setFormProgress(0);
+									props._bringForm(false);
+								}
+								} style={{ margin: '20px auto', border: '20px solid transparent', maxWidth: '800px' }}>
 								<div className="modal-header justify-content-center">
 									<button
 										className="close"
@@ -739,7 +741,7 @@ function Javascript(props) {
 									>
 										<i className="now-ui-icons ui-1_simple-remove"></i>
 									</button>
-									<h4 className="title title-up">CodeCamp 2019</h4>
+									{/* <h4 className="title title-up">CodeCamp 2019</h4> */}
 								</div>
 
 
@@ -751,7 +753,7 @@ function Javascript(props) {
 
 
 									<p className="aboutText" style={{ maxHeight: '50vh', margin: 'auto', maxWidth: '800px', textAlign: 'center' }}>
-										<h5 style = {{textAlign: 'center', margin: 'auto'}}> Registration is Closed! Stay tuned for more news....</h5>
+										<img src="https://lh6.googleusercontent.com/HJ0W5APuzZBzjkZOYTuUlF5XjUORj9zdbKqmitNAdfyYZqlu1iGLhw14cWRDXULtJP0Uabl2lGV408r4hsl2=w1366-h635-rw" alt="Selected teams of CodeCamp" className="selected-list" />
 									</p>
 
 									<Row>

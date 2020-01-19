@@ -21,6 +21,24 @@ function IndexHeader(props) {
   })
 
   React.useEffect(() => {
+
+    let timerFrame = document.getElementById("timerFrame");
+
+
+
+    // var style = document.createElement('style');
+    // style.textContent = '' +
+    //   'body {border: 3px solid red}' +
+    //   'img {display: none}'
+
+    //   timerFrame.body.innerHTML;
+    // timerFrame.open();
+    // timerFrame.write(css);
+    // timerFrame.close();
+    // timerFrame.contentDocument.head.appendChild(style);
+
+    // let doc = timerFrame.contentDocument;
+    // doc.body.innerHTML = '<style type="text/css"> body {border: 3px solid red} img{display: none}</style>' + doc.body.innerHTML;
     if (window.innerWidth > 991) {
       const updateScroll = () => {
         let windowScrollTop = window.pageYOffset / 3;
@@ -31,6 +49,8 @@ function IndexHeader(props) {
       return function cleanup() {
         window.removeEventListener("scroll", updateScroll);
       };
+
+
     }
   });
 
@@ -53,7 +73,11 @@ function IndexHeader(props) {
             ></img>
             <h3 style={{ marginTop: '15px' }}>Magh 9 - Magh 11</h3>
             {/* <h6 style={{ marginTop: '15px' }}>Submit your idea and be ready for the challenge!!</h6> */}
-            <HomeButton _bringForm={props._bringForm} />
+            {/* <HomeButton _bringForm={props._bringForm} />
+            <iframe id="timerFrame" width="376" height="86" src="https://w2.countingdownto.com/2830194" frameborder="0">
+
+            </iframe> */}
+            <CountDown />
           </div>
 
         </Container>

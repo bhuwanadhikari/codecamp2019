@@ -27,6 +27,7 @@ import Download from "./index-sections/Download.js";
 import ContactUs from "./index-sections/ContactUs";
 import Venue from "./index-sections/VenueLocation.js";
 import { setStyle } from "rc-menu/lib/util";
+import CarouselSchedule from "./index-sections/Carousel-Schedule";
 
 
 function Index() {
@@ -86,6 +87,7 @@ function Index() {
           <Download /> */}
           {/* <Venue /> */}
           {/* <ContactUs /> */}
+          <CarouselSchedule />
           <Carousel />
         </div>
         <DarkFooter />

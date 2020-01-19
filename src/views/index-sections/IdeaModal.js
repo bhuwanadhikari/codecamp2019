@@ -714,7 +714,7 @@ function Javascript(props) {
 					id="upgrade-to-pro"
 					onClick={() => setFormProgress(1)}
 				>
-					<i className="now-ui-icons files_single-copy-04 mr-1"></i>
+					<i className="now-ui-icons business_badge mr-1"></i>
 					<p>Teams</p>
 				</Button>
 
@@ -735,13 +735,14 @@ function Javascript(props) {
 								} style={{ margin: '20px auto', border: '20px solid transparent', maxWidth: '800px' }}>
 								<div className="modal-header justify-content-center">
 									<button
+										style={{ cursor: 'pointer' }}
 										className="close"
 										type="button"
 										onClick={_cancel}
 									>
 										<i className="now-ui-icons ui-1_simple-remove"></i>
 									</button>
-									{/* <h4 className="title title-up">CodeCamp 2019</h4> */}
+									<h4 className="title">Competing Teams</h4>
 								</div>
 
 
@@ -752,9 +753,7 @@ function Javascript(props) {
 									</p> */}
 
 
-									<p className="aboutText" style={{ maxHeight: '50vh', margin: 'auto', maxWidth: '800px', textAlign: 'center' }}>
-										<img src="https://lh6.googleusercontent.com/HJ0W5APuzZBzjkZOYTuUlF5XjUORj9zdbKqmitNAdfyYZqlu1iGLhw14cWRDXULtJP0Uabl2lGV408r4hsl2=w1366-h635-rw" alt="Selected teams of CodeCamp" className="selected-list" />
-									</p>
+										<img src="https://firebasestorage.googleapis.com/v0/b/bhuwan-forum.appspot.com/o/codecamp-photos%2FCodecamp%20teams%20(1).png?alt=media&token=a97d7a29-eaab-438a-85d1-72d1ededcda9" alt="Selected teams of CodeCamp" className="selected-list" />
 
 									<Row>
 										{/* <FormGroup check>
@@ -776,11 +775,11 @@ function Javascript(props) {
 								</ModalBody>
 
 								<div className="modal-footer">
-									<Button color="danger" type="button"
+									{/* <Button color="danger" type="button"
 										onClick={_cancel}>
-										{/* Cancel */}
+										Cancel
 										Done
-                                    </Button>
+                                    </Button> */}
 									{/* <Button
 										color="info"
 										type="button"

@@ -24,6 +24,7 @@ import {
 } from "reactstrap";
 import axios from "axios";
 import Accordions from "./Accordions";
+import CarouselSchedule from "./Carousel-Schedule";
 
 // core components
 
@@ -198,15 +199,15 @@ function BasicElements() {
           <Accordions />
 
           <div id="schedule" style={{ height: '1px', width: '100%', position: 'relative', top: '-60px' }}></div>
-          <h2 className="topMarginedTitle isCentered" >Schedule</h2>
-          <p className=" isCentered ralewayFonted" style={{ textAlign: 'center', fontSize: '0.9em', color: '#123456' }}>Schedule will be published soon. Stay tuned!!</p>
 
 
 
 
 
 
-          {/*
+
+          {
+            /*
           <Row>
             <Col md="10">
               <Button color="info" type="button">

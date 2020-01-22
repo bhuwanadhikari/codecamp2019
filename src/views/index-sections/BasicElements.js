@@ -97,102 +97,227 @@ function BasicElements() {
 
 
           {/* Title Sponsor */}
-          {/*
+
           <Row>
             <Col sm="12" md={{ size: 6, offset: 3 }}>
               <img
                 alt="Sponsor ko alt"
-                className="rounded-circle img-raised"
                 onClick={() => console.log("go to page of the sponsor")}
-                src={require("assets/img/flooop.png")}
-                style={{ marginLeft: 'calc(50% - 100px)', height: '200px', width: '200px', objectFit: 'fill' }}
+                src={require("assets/img/leapfrog.png")}
+                style={{ margin: '10px', marginLeft: 'calc(50% - 110px)', width: '220px', objectFit: 'fill' }}
               ></img>
-              <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p>
+              {/* <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p> */}
             </Col>
           </Row>
-          */}
+
+          <Row>
+            <Col sm="12" md={{ size: 6, offset: 3 }}>
+              <img
+                alt="Sponsor ko alt"
+                onClick={() => console.log("go to page of the sponsor")}
+                src={require("assets/img/nta.png")}
+                style={{ margin: '10px', marginLeft: 'calc(50% - 90px)', width: '180px', objectFit: 'fill', marginTop: '30px' }}
+              ></img>
+              {/* <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p> */}
+            </Col>
+          </Row>
+
 
 
           {/* Level 2 sponsors */}
-          {/* <Row>
+          <Row style={{ paddingTop: '20px' }}>
+
             <Col xs="12" sm="4">
               <img
                 alt="Sponsor ko alt"
-                className="rounded-circle img-raised"
                 onClick={() => console.log("go to page of the sponsor")}
-                src={require("assets/img/flooop.png")}
-                style={{ marginLeft: 'calc(50% - 75px)', height: '150px', width: '150px', objectFit: 'fill' }}
+                src={require("assets/img/jankaritech.png")}
+                style={{ margin: '10px', marginLeft: 'calc(50% - 80px)', width: '160px', objectFit: 'fill' }}
               ></img>
-              <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p>
+              {/* <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p> */}
             </Col>
             <Col xs="12" sm="4">
               <img
                 alt="Sponsor ko alt"
-                className="rounded-circle img-raised"
                 onClick={() => console.log("go to page of the sponsor")}
-                src={require("assets/img/flooop.png")}
-                style={{ marginLeft: 'calc(50% - 75px)', height: '150px', width: '150px', objectFit: 'fill' }}
+                src={require("assets/img/yarsa.png")}
+                style={{ margin: '10px', marginLeft: 'calc(50% - 80px)', width: '160px', objectFit: 'fill' }}
               ></img>
-              <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p>
+              {/* <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p> */}
             </Col>
             <Col xs="12" sm="4">
               <img
                 alt="Sponsor ko alt"
-                className="rounded-circle img-raised"
                 onClick={() => console.log("go to page of the sponsor")}
-                src={require("assets/img/flooop.png")}
-                style={{ marginLeft: 'calc(50% - 75px)', height: '150px', width: '150px', objectFit: 'fill' }}
+                src={require("assets/img/itdeurali.png")}
+                style={{ margin: '10px', marginLeft: 'calc(50% - 80px)', width: '160px', objectFit: 'fill' }}
               ></img>
-              <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p>
+              {/* <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p> */}
             </Col>
           </Row>
 
-          */}
-          {/* Level 3 sponsors */}
-          {/*
-          <Row>
-            <Col xs="6" sm="3" md="3">
+          {/* Level 2 sponsors */}
+          <Row style={{ paddingTop: '20px' }}>
+
+            <Col xs="12" sm="4">
               <img
                 alt="Sponsor ko alt"
-                className="rounded-circle img-raised"
                 onClick={() => console.log("go to page of the sponsor")}
-                src={require("assets/img/flooop.png")}
-                style={{ marginLeft: 'calc(50% - 65px)', height: '130px', width: '130px', objectFit: 'fill' }}
+                src={require("assets/img/zimris.png")}
+                style={{ margin: '10px', marginLeft: 'calc(50% - 80px)', width: '160px', objectFit: 'fill' }}
               ></img>
-              <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p>
+              {/* <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p> */}
             </Col>
-            <Col xs="6" sm="3" md="3">
+            <Col xs="12" sm="4">
               <img
                 alt="Sponsor ko alt"
-                className="rounded-circle img-raised"
                 onClick={() => console.log("go to page of the sponsor")}
-                src={require("assets/img/flooop.png")}
-                style={{ marginLeft: 'calc(50% - 65px)', height: '130px', width: '130px', objectFit: 'fill' }}
+                src={require("assets/img/tripnp.png")}
+                style={{ margin: '10px', marginLeft: 'calc(50% - 80px)', width: '160px', objectFit: 'fill', }}
               ></img>
-              <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p>
+              {/* <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p> */}
             </Col>
-            <Col xs="6" sm="3" md="3">
+            <Col xs="12" sm="4">
               <img
                 alt="Sponsor ko alt"
-                className="rounded-circle img-raised"
                 onClick={() => console.log("go to page of the sponsor")}
-                src={require("assets/img/flooop.png")}
-                style={{ marginLeft: 'calc(50% - 65px)', height: '130px', width: '130px', objectFit: 'fill' }}
+                src={require("assets/img/ambition.png")}
+                style={{ margin: '10px', marginLeft: 'calc(50% - 80px)', width: '160px', objectFit: 'fill' }}
               ></img>
-              <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p>
-            </Col>
-            <Col xs="6" sm="3" md="3">
-              <img
-                alt="Sponsor ko alt"
-                className="rounded-circle img-raised"
-                onClick={() => console.log("go to page of the sponsor")}
-                src={require("assets/img/flooop.png")}
-                style={{ marginLeft: 'calc(50% - 65px)', height: '130px', width: '130px', objectFit: 'fill' }}
-              ></img>
-              <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p>
+              {/* <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p> */}
             </Col>
           </Row>
- */}
+
+          {/* Level 2 sponsors */}
+          <Row style={{ paddingTop: '20px' }}>
+            <Col xs="12" sm="4">
+              <img
+                alt="Sponsor ko alt"
+                onClick={() => console.log("go to page of the sponsor")}
+                src={require("assets/img/ambition.png")}
+                style={{ margin: '10px', marginLeft: 'calc(50% - 80px)', width: '160px', objectFit: 'fill' }}
+              ></img>
+              {/* <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p> */}
+            </Col>
+            <Col xs="12" sm="4">
+              <img
+                alt="Sponsor ko alt"
+                onClick={() => console.log("go to page of the sponsor")}
+                src={require("assets/img/dreamsys.png")}
+                style={{ margin: '10px', marginLeft: 'calc(50% - 80px)', width: '160px', objectFit: 'fill' }}
+              ></img>
+              {/* <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p> */}
+            </Col>
+            <Col xs="12" sm="4">
+              <img
+                alt="Sponsor ko alt"
+                onClick={() => console.log("go to page of the sponsor")}
+                src={require("assets/img/mac.png")}
+                style={{ margin: '10px', marginLeft: 'calc(50% - 80px)', width: '160px', objectFit: 'fill' }}
+              ></img>
+              {/* <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p> */}
+            </Col>
+          </Row>
+
+          {/* Level 2 sponsors */}
+          <Row style={{ paddingTop: '20px' }}>
+            <Col xs="12" sm="4">
+              <img
+                alt="Sponsor ko alt"
+                onClick={() => console.log("go to page of the sponsor")}
+                src={require("assets/img/dcube.png")}
+                style={{ margin: '10px', marginLeft: 'calc(50% - 80px)', width: '160px', objectFit: 'fill' }}
+              ></img>
+              {/* <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p> */}
+            </Col>
+
+
+          </Row>
+
+
+          {/* Level 3 sponsors */}
+
+          <Row style={{ paddingTop: '20px' }}>
+            <Col xs="6" sm="3" md="3">
+              <img
+                alt="Sponsor ko alt"
+                onClick={() => console.log("go to page of the sponsor")}
+                src={require("assets/img/webpage.png")}
+                style={{ margin: '10px', marginLeft: 'calc(50% - 65px)', width: '130px', objectFit: 'fill' }}
+              ></img>
+              {/* <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p> */}
+            </Col>
+            <Col xs="6" sm="3" md="3">
+              <img
+                alt="Sponsor ko alt"
+                onClick={() => console.log("go to page of the sponsor")}
+                src={require("assets/img/helloworld.png")}
+                style={{ margin: '10px', marginLeft: 'calc(50% - 65px)', width: '130px', objectFit: 'fill' }}
+              ></img>
+              {/* <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p> */}
+            </Col>
+            <Col xs="6" sm="3" md="3">
+              <img
+                alt="Sponsor ko alt"
+                onClick={() => console.log("go to page of the sponsor")}
+                src={require("assets/img/askbuddie.png")}
+                style={{ margin: '10px', marginLeft: 'calc(50% - 65px)', width: '130px', objectFit: 'fill' }}
+              ></img>
+              {/* <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p> */}
+            </Col>
+            <Col xs="6" sm="3" md="3">
+              <img
+                alt="Sponsor ko alt"
+                onClick={() => console.log("go to page of the sponsor")}
+                src={require("assets/img/pagoda.png")}
+                style={{ margin: '10px', marginLeft: 'calc(50% - 65px)', width: '130px', objectFit: 'fill' }}
+              ></img>
+              {/* <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p> */}
+            </Col>
+
+          </Row>
+          {/* Level 3 sponsors */}
+
+          <Row style={{ paddingTop: '20px' }}>
+            <Col xs="6" sm="3" md="3">
+              <img
+                alt="Sponsor ko alt"
+                onClick={() => console.log("go to page of the sponsor")}
+                src={require("assets/img/dreamsys.png")}
+                style={{ margin: '10px', marginLeft: 'calc(50% - 65px)', width: '130px', objectFit: 'fill' }}
+              ></img>
+              {/* <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p> */}
+            </Col>
+            <Col xs="6" sm="3" md="3">
+              <img
+                alt="Sponsor ko alt"
+                onClick={() => console.log("go to page of the sponsor")}
+                src={require("assets/img/rajmarga.png")}
+                style={{ margin: '10px', marginLeft: 'calc(50% - 65px)', width: '130px', objectFit: 'fill' }}
+              ></img>
+              {/* <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p> */}
+            </Col>
+            <Col xs="6" sm="3" md="3">
+              <img
+                alt="Sponsor ko alt"
+                onClick={() => console.log("go to page of the sponsor")}
+                src={require("assets/img/prabidiinfo.png")}
+                style={{ margin: '10px', marginLeft: 'calc(50% - 65px)', width: '130px', objectFit: 'fill' }}
+              ></img>
+              {/* <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p> */}
+            </Col>
+            <Col xs="6" sm="3" md="3">
+              <img
+                alt="Sponsor ko alt"
+                onClick={() => console.log("go to page of the sponsor")}
+                src={require("assets/img/ghandruk.png")}
+                style={{ margin: '10px', marginLeft: 'calc(50% - 65px)', width: '130px', objectFit: 'fill' }}
+              ></img>
+              {/* <p className="category isCentered" style={{ margin: '15px auto' }}>Title Sponsor</p> */}
+            </Col>
+
+          </Row>
+
 
           <div id="faqs" style={{ height: '1px', width: '100%', position: 'relative', top: '-60px' }}></div>
           <h2 style={{ textAlign: 'center', marginTop: '80px' }} id='faqs'>FAQs</h2>

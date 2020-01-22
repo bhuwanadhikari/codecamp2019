@@ -69,7 +69,7 @@ function IndexHeader(props) {
             <img
               className="n-logo"
 
-              src={require("assets/img/whitelogo.png")}
+              src={require("assets/img/logo2.png")}
             ></img>
             <h3 style={{ marginTop: '15px' }}>Magh 9 - Magh 11</h3>
             {/* <h6 style={{ marginTop: '15px' }}>Submit your idea and be ready for the challenge!!</h6> */}

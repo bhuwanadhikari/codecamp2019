@@ -39,7 +39,6 @@ class CountDown extends React.Component {
     }
     render() {
 
-        console.log(this.state.timeLeft, 'is the time left')
         let toShow = (
             <div className="clock">
 
@@ -74,7 +73,7 @@ class CountDown extends React.Component {
         if (this.state.timeLeft < 1 && this.state.timeLeft > -234000000) {
             toShow = (
                 < div className="clock" >
-                    <h3 style={{ margin: 'auto', lineHeight: '105px' }}>Happing Now!!</h3>
+                    <h3 style={{ margin: 'auto', lineHeight: '105px' }}>Happening Now!!</h3>
                 </div>
             )
         }

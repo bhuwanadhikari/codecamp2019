@@ -11,6 +11,8 @@ class CountDown extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            happeingNow: false,
+            timeLeft: '',
             days: 0,
             hours: 0,
             minutes: 0,
@@ -28,10 +30,17 @@ class CountDown extends React.Component {
         const hours = pad(Math.floor(time / (1000 * 60 * 60) % 24))
         const days = pad(Math.floor(time / (1000 * 60 * 60 * 24)))
 
+        this.setState({ timeLeft: time })
+        if (time < 1 && time > -234000) {
+            this.setState({ happeningNow: true })
+        }
+
         this.setState({ days, hours, minutes, seconds })
     }
     render() {
-        return (
+
+        console.log(this.state.timeLeft, 'is the time left')
+        let toShow = (
             <div className="clock">
 
                 <div className="clock__display">
@@ -61,6 +70,23 @@ class CountDown extends React.Component {
                 </div>
             </div>
         )
+
+        if (this.state.timeLeft < 1 && this.state.timeLeft > -234000000) {
+            toShow = (
+                < div className="clock" >
+                    <h3 style={{ margin: 'auto', lineHeight: '105px' }}>Happing Now!!</h3>
+                </div>
+            )
+        }
+        if (this.state.timeLeft < -234000000) {
+            toShow = (
+                < div className="clock" >
+                    <h3 style={{ margin: 'auto', lineHeight: '105px' }}>Successfully Completed!!</h3>
+                </div>
+            )
+        }
+
+        return toShow
     }
 }
 
